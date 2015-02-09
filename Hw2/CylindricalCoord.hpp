@@ -1,4 +1,10 @@
 template <class T>
+//////////////////////////////////////////////////////////////////////
+/// @file CylindricalCoord.hpp
+/// @author Kelsey Maricic CS 5201 A
+/// @brief Write a templated class to implement cylindrical coordinates
+//////////////////////////////////////////////////////////////////////
+
 CylindricalCoord<T> CylindricalCoord<T>::operator-(const CylindricalCoord<T>& b) const
 {
 
@@ -11,7 +17,7 @@ T CylindricalCoord<T>::operator~(const CylindricalCoord<T>& b) const
 }
 
 template <class T>
-T CylindricalCoord<T>::operator~(const CylindricalCoord<T>& b)
+T CylindricalCoord<T>::operator=(const CylindricalCoord<T>& b)
 {
   m_r = b.m_r;
   m_theta = b.m_theta;
