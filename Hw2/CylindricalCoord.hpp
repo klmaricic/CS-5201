@@ -40,7 +40,7 @@ bool CylindricalCoord<T>::operator==(const CylindricalCoord<T>& b) const
 template <class T>
 bool CylindricalCoord<T>::operator!=(const CylindricalCoord<T>& b) const
 {
-  return !((m_r == b.m_r)&&(m_theta == b.m_theta)&&(m_z == b.m_z)); //MIGHT BE ISSUE WITH 2PI VS 0
+  return !cartesianCoord(*this) == cartesianCoord(b);
 }
 
 bool operator<(const CylindricalCoord<T>& b) const
@@ -52,10 +52,10 @@ bool operator<(const CylindricalCoord<T>& b) const
   return mag1 < mag2;
 }
 
-bool operator>(const CylindricalCoord<T>& b) const
+bool operator>(const CylindricalCoord<T>& a, const CylindricalCoord<T>& b) const
 {
   T mag1, mag2;
-  mag1 = ~*this;
+  mag1 = ~a;
   mag2 = ~b;
   
   return mag1 > mag2;

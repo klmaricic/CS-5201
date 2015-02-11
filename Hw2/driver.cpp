@@ -11,9 +11,10 @@
 
 int main() 
 {
+/*
   string file;
   int numPairs;
-  vector<cylindricalNum<int> > vect;
+  #vector<CylindricalCoord<double> > vect;
   float r, theta, z;
   
   cout<<"Please enter the file name (including extension)"<<endl;
@@ -38,6 +39,9 @@ int main()
   }
 
   else cout << "Unable to open file"; 
-
+  */
+  
+  CylindricalCoord<double> p(5, -7.192, 1);
+  std::cout << (!p)[1] << std::endl;
   return 0;
 }

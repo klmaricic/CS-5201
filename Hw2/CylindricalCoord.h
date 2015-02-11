@@ -6,17 +6,19 @@
 
 #ifndef __CylindricalCoord_H_INCLUDED
 #define __CylindricalCoord_H_INCLUDED
+
 #include <stdexcept>
 #include <cmath>
+#include <string>
 
 template<class T>
 class CylindricalCoord
 {
   public:
     /************************** Constructors/Destructor  **************************/
-    CylindricalCoord<T>::CylindricalCoord(): m_r(0), m_theta(0), m_z(0) {}
-	CylindricalCoord<T>::CylindricalCoord(const T& r, const T& theta, const T& z): m_r(r), m_theta(theta), m_z(z) {}
-	CylindricalCoord<T>::CylindricalCoord(const CylindricalCoord<T> &coord): m_r(coord.m_r), m_theta(coord.m_theta), m_z(coord.m_z) {}
+    CylindricalCoord(): m_r(0), m_theta(0), m_z(0) {}
+	CylindricalCoord(const T& r, const T& theta, const T& z): m_r(r), m_theta(theta), m_z(z) {}
+	CylindricalCoord(const CylindricalCoord<T> &coord): m_r(coord.m_r), m_theta(coord.m_theta), m_z(coord.m_z) {}
 	~CylindricalCoord() {}
 	
 	/************************** Operators **************************/
@@ -32,7 +34,7 @@ class CylindricalCoord
 	*/
 	T CylindricalCoord<T>::operator~() const
 	
-	/* Purpose:	Logical NOT operator
+	/* Purpose:	Bang operator
 	   Pre: 	None
 	   Post:	Returns the reflection of the calling object through the z-axis
 	*/
@@ -60,7 +62,7 @@ class CylindricalCoord
 	   Pre: 	None
 	   Post: 	Returns true if the calling object is farther from the origin than b. Returns false otherwise.
 	*/
-	bool operator>(const CylindricalCoord<T>& b) const
+	bool operator>(const CylindricalCoord<T>& a, const CylindricalCoord<T>& b) const
 	
 	/* Purpose:	Less than operator
 	   Pre:		None
