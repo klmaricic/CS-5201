@@ -62,13 +62,13 @@ class CylindricalCoord
 	   Pre: 	None
 	   Post: 	Returns true if the calling object is farther from the origin than b. Returns false otherwise.
 	*/
-	bool operator>(const CylindricalCoord<T>& a, const CylindricalCoord<T>& b) const
+	bool CylindricalCoord<T>::operator>(const CylindricalCoord<T>& a, const CylindricalCoord<T>& b)
 	
 	/* Purpose:	Less than operator
 	   Pre:		None
 	   Post:	Returns true if the calling object is closer to the origin than b. Returns false otherwise.
 	*/
-	bool operator<(const CylindricalCoord<T>& b) const
+	bool CylindricalCoord<T>::operator<(const CylindricalCoord<T>& a, const CylindricalCoord<T>& b)
 	
 	/* Purpose:	Converts the cylindrical coordinates to cartesian values
 	   Pre:		None
