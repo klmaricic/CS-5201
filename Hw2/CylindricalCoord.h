@@ -22,11 +22,23 @@ class CylindricalCoord
 	/************************** Operators **************************/
 	/* Purpose:	Subtraction operator
 	   Pre: 	None
-	   Post:	Returns the reflection through the origin or pole
+	   Post:	Returns the reflection of the calling object through the origin or pole
 	*/
 	CylindricalCoord<T> CylindricalCoord<T>::operator-() const
 	
-	/* Purpose:	Assignment operator
+	/* Purpose:	Bitwise NOT operator
+	   Pre: 	None
+	   Post:	Returns the magnitude of the calling object
+	*/
+	T CylindricalCoord<T>::operator~() const
+	
+	/* Purpose:	Logical NOT operator
+	   Pre: 	None
+	   Post:	Returns the reflection of the calling object through the z-axis
+	*/
+	CylindricalCoord<T> CylindricalCoord<T>::operator!() const
+	
+	/* Purpose:	Basic assignment operator
 	   Pre:		None
 	   Post:	Copies b onto the calling object
 	*/
@@ -34,13 +46,13 @@ class CylindricalCoord
 	
 	/* Purpose:	Equal to operator
 	   Pre: 	None
-	   Post:	Returns true if b has the same values as the calling object. Returns false otherwise.
+	   Post:	Returns true if b represents the same point in space as the calling object. Returns false otherwise.
 	*/
 	bool CylindricalCoord<T>::operator==(const CylindricalCoord<T>& b) const;
 	
 	/* Purpose:	Not equal to operator
 	   Pre: 	None
-	   Post: 	Returns true if b does not have all of the same values as the calling object. Returns false otherwise.
+	   Post: 	Returns true if b does not represent the same point in space as the calling object. Returns false otherwise.
 	*/
 	bool CylindricalCoord<T>::operator!=(const CylindricalCoord<T>& b) const
 	
@@ -48,13 +60,13 @@ class CylindricalCoord
 	   Pre: 	None
 	   Post: 	Returns true if the calling object is farther from the origin than b. Returns false otherwise.
 	*/
-	CylindricalCoord<T> operator>(const CylindricalCoord<T>& b) const
+	bool operator>(const CylindricalCoord<T>& b) const
 	
 	/* Purpose:	Less than operator
 	   Pre:		None
 	   Post:	Returns true if the calling object is closer to the origin than b. Returns false otherwise.
 	*/
-	CylindricalCoord<T> operator<(const CylindricalCoord<T>& b) const
+	bool operator<(const CylindricalCoord<T>& b) const
 	
 	/* Purpose:	Converts the cylindrical coordinates to cartesian values
 	   Pre:		None

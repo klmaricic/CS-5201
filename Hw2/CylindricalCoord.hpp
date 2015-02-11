@@ -7,19 +7,19 @@ template <class T>
 
 CylindricalCoord<T> CylindricalCoord<T>::operator-() const
 {
-  return CylindricalCoord<T>(m_r, -m_theta, -m_z);
+  return CylindricalCoord<T>(m_r, static_cast<T>(fmod(m_theta+ M_PI, 2*M_PI)), -m_z);
 }
 
 template <class T>
-T CylindricalCoord<T>::operator~(const CylindricalCoord<T>& b) const
+T CylindricalCoord<T>::operator~() const
 {
-  return sqrt(pow(b.m_r,2)+pow(b.m_z,2));
+  return sqrt(pow(m_r,2)+pow(m_z,2));
 }
 
 template<class T>
 CylindricalCoord<T> CylindricalCoord<T>::operator!() const
 {
-
+  return CylindricalCoord<T>(m_r, static_cast<T>(fmod(m_theta+ M_PI, 2*M_PI)), m_z);
 }
 
 template <class T>
@@ -34,13 +34,13 @@ T CylindricalCoord<T>::operator=() const
 template <class T>
 bool CylindricalCoord<T>::operator==(const CylindricalCoord<T>& b) const
 {
-  return((m_r == b.m_r)&&(m_theta == b.m_theta)&&(m_z == b.m_z));
+  return cartesianCoord(*this) == cartesianCoord(b);
 }
 
 template <class T>
 bool CylindricalCoord<T>::operator!=(const CylindricalCoord<T>& b) const
 {
-  return !((m_r == b.m_r)&&(m_theta == b.m_theta)&&(m_z == b.m_z));
+  return !((m_r == b.m_r)&&(m_theta == b.m_theta)&&(m_z == b.m_z)); //MIGHT BE ISSUE WITH 2PI VS 0
 }
 
 bool operator<(const CylindricalCoord<T>& b) const
@@ -52,7 +52,7 @@ bool operator<(const CylindricalCoord<T>& b) const
   return mag1 < mag2;
 }
 
-CylindricalCoord<T> operator>(const CylindricalCoord<T>& b) const
+bool operator>(const CylindricalCoord<T>& b) const
 {
   T mag1, mag2;
   mag1 = ~*this;
