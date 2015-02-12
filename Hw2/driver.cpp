@@ -41,7 +41,7 @@ int main()
   else cout << "Unable to open file"; 
   */
   
-  #CylindricalCoord<double> p(5, -7.192, 1);
-  #std::cout << (!p)[1] << std::endl;
-  return 0;
+  CylindricalCoord<double> p(5, -7.192, 1);
+
+  std::cout << p.cartesianCoord() << std::endl;
 }

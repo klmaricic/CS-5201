@@ -23,7 +23,7 @@ CylindricalCoord<T> CylindricalCoord<T>::operator!() const
 }
 
 template <class T>
-T CylindricalCoord<T>::operator=() const
+T CylindricalCoord<T>::operator=(const CylindricalCoord<T>& b) const
 {
   m_r = b.m_r;
   m_theta = b.m_theta;
@@ -32,45 +32,43 @@ T CylindricalCoord<T>::operator=() const
 }
 
 template <class T>
-bool CylindricalCoord<T>::operator==(const CylindricalCoord<T>& b) const
+bool CylindricalCoord<T>::operator==(const CylindricalCoord<T>& b)
 {
   return cartesianCoord(*this) == cartesianCoord(b);
 }
 
 template <class T>
-bool CylindricalCoord<T>::operator!=(const CylindricalCoord<T>& b) const
+bool CylindricalCoord<T>::operator!=(const CylindricalCoord<T>& b)
 {
   return !cartesianCoord(*this) == cartesianCoord(b);
 }
 
 template <class T>
-bool operator<(const CylindricalCoord<T>& a, const CylindricalCoord<T>& b)
+bool CylindricalCoord<T>::operator<(const CylindricalCoord<T>& b)
 {
   T mag1, mag2;
-  mag1 = ~a;
+  mag1 = ~*this;
   mag2 = ~b;
   
   return mag1 < mag2;
 }
 
 template <class T>
-bool operator>(const CylindricalCoord<T>& a, const CylindricalCoord<T>& b)
+bool CylindricalCoord<T>::operator>(const CylindricalCoord<T>& b)
 {
   T mag1, mag2;
-  mag1 = ~a;
+  mag1 = ~*this;
   mag2 = ~b;
   
   return mag1 > mag2;
 }
 
 template <class T>
-string CylindricalCoord<T>::cartesianCoord(const CylindricalCoord<T>& b) const
+std::string CylindricalCoord<T>::cartesianCoord() const
 {
-/*
-  std::stringstream stream;
-  std::string cartCoord;
-  stream<<"("<<(b.m_r*cos(m_theta))<<","<<(b.m_r*sin(m_theta))<<","<<b.m_r<<")";
-  cartCoord = stream.str();
-  return cartCoord;
-  */
+  T x = m_r*cos(m_theta);
+  T y = m_r*sin(m_theta);
+  std::ostringstream ss; 
+  ss << "(" << x << ", " << y << ", " << m_z << ")";
+  return ss.str();
 }
