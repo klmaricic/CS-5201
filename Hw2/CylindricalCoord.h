@@ -46,7 +46,7 @@ class CylindricalCoord
 	   Pre:		None
 	   Post:	Copies b onto the calling object
 	*/
-	T operator=(const CylindricalCoord<T>& b) const;
+	void operator=(const CylindricalCoord<T>& b);
 	
 	/* Purpose:	Equal to operator
 	   Pre: 	None
@@ -71,6 +71,18 @@ class CylindricalCoord
 	   Post:	Returns true if the calling object is closer to the origin than b. Returns false otherwise.
 	*/
 	bool operator<(const CylindricalCoord<T>& b);
+	
+	/* Purpose:	brackets operator
+	   Pre:		None
+	   Post:	Returns m_r if i=0, m_theta if i=1, or m_z if i=2. The returned value cannot be modified.
+	*/
+	const T& operator[](const int i) const;
+	
+	/* Purpose:	brackets operator
+	   Pre:		None
+	   Post:	Returns m_r if i=0, m_theta if i=1, or m_z if i=2. The returned value can be modified.
+	*/
+	T& operator[](const int i);
 	
 	/* Purpose:	Converts the cylindrical coordinates to cartesian values
 	   Pre:		None

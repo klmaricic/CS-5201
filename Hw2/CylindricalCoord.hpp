@@ -23,12 +23,11 @@ CylindricalCoord<T> CylindricalCoord<T>::operator!() const
 }
 
 template <class T>
-T CylindricalCoord<T>::operator=(const CylindricalCoord<T>& b) const
+void CylindricalCoord<T>::operator=(const CylindricalCoord<T>& b)
 {
   m_r = b.m_r;
   m_theta = b.m_theta;
   m_z = b.m_z;
-  return *this;
 }
 
 template <class T>
@@ -61,6 +60,34 @@ bool CylindricalCoord<T>::operator>(const CylindricalCoord<T>& b)
   mag2 = ~b;
   
   return mag1 > mag2;
+}
+
+template<class T>
+const T& CylindricalCoord<T>::operator[](const int i) const {
+  switch(i) {
+    case 0:
+      return m_r;
+    case 1:
+      return m_theta;
+    case 2:
+      return m_z;
+    default:
+      throw std::out_of_range ("i must be in range [0,2]");
+  }
+}
+ 
+template<class T>
+T& CylindricalCoord<T>::operator[](const int i) {
+  switch(i) {
+    case 0:
+      return m_r;
+    case 1:
+      return m_theta;
+    case 2:
+      return m_z;
+    default:
+      throw std::out_of_range ("i must be in range [0,2]");
+  }
 }
 
 template <class T>

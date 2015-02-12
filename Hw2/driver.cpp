@@ -8,19 +8,24 @@
 #include <fstream>
 #include <string>
 #include "CylindricalCoord.h"
+#include "Norm.h"
+#include <vector>
+#include <iomanip>
+
 
 int main() 
 {
-/*
-  string file;
+  std::string file;
+  std::stringstream stream;
   int numPairs;
-  #vector<CylindricalCoord<double> > vect;
-  float r, theta, z;
+  std::vector<CylindricalCoord<double> > vect;
+  double r, theta, z;
+  Norm<double> norm;
+ 
+  std::cout<<"Please enter the file name (including extension)"<< std::endl;
+  std::cin>>file;
   
-  cout<<"Please enter the file name (including extension)"<<endl;
-  cin>>file;
-  
-  ifstream inFile (file);
+  std::ifstream inFile (file.c_str());
   
   if (inFile.is_open())
   {
@@ -33,15 +38,14 @@ int main()
       std::string type;
 
       inFile >> r >> theta >> z;       //now read the whitespace-separated floats
+	  vect.push_back(CylindricalCoord<double> (r,theta, z));
     }
 	
     inFile.close();
+    std::cout << norm(vect) << std::endl;
+
   }
 
-  else cout << "Unable to open file"; 
-  */
+  else std::cout << "Unable to open file" << std::endl; 
   
-  CylindricalCoord<double> p(5, -7.192, 1);
-
-  std::cout << p.cartesianCoord() << std::endl;
 }
