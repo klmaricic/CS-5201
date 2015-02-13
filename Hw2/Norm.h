@@ -12,17 +12,12 @@ template<class T>
 class Norm
 {
   public:
-    /************************** Constructors/Destructor  **************************/
-	Norm() {}
-	~Norm() {}
-	
 	/************************** Operator **************************/
-	/* Purpose:	Subtraction operator
-	   Pre: 	None
-	   Post:	Returns the reflection of the calling object through the origin or pole
+	/* Purpose:	Parenthesis operator
+	   Pre: 	All of the given coordinates have initialized values
+	   Post:	Returns the sum of the magnitudes of all the cylindrical coordinates in the set
 	*/
 	T operator()(std::vector<CylindricalCoord<double> > vect) const;
-
 };
 #include "Norm.hpp"
 #endif

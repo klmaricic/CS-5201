@@ -4,6 +4,7 @@
 /// @brief Write a templated class to implement cylindrical coordinates
 //////////////////////////////////////////////////////////////////////
 
+/************************** Operators **************************/
 template <class T>
 CylindricalCoord<T> CylindricalCoord<T>::operator-() const
 {
@@ -31,19 +32,19 @@ void CylindricalCoord<T>::operator=(const CylindricalCoord<T>& b)
 }
 
 template <class T>
-bool CylindricalCoord<T>::operator==(const CylindricalCoord<T>& b)
+bool CylindricalCoord<T>::operator==(const CylindricalCoord<T>& b) const
 {
-  return cartesianCoord(*this) == cartesianCoord(b);
+  return (*this).cartesianCoord() == b.cartesianCoord();
 }
 
 template <class T>
-bool CylindricalCoord<T>::operator!=(const CylindricalCoord<T>& b)
+bool CylindricalCoord<T>::operator!=(const CylindricalCoord<T>& b) const
 {
-  return !cartesianCoord(*this) == cartesianCoord(b);
+  return !((*this).cartesianCoord() == b.cartesianCoord());
 }
 
 template <class T>
-bool CylindricalCoord<T>::operator<(const CylindricalCoord<T>& b)
+bool CylindricalCoord<T>::operator<(const CylindricalCoord<T>& b) const
 {
   T mag1, mag2;
   mag1 = ~*this;
@@ -53,7 +54,7 @@ bool CylindricalCoord<T>::operator<(const CylindricalCoord<T>& b)
 }
 
 template <class T>
-bool CylindricalCoord<T>::operator>(const CylindricalCoord<T>& b)
+bool CylindricalCoord<T>::operator>(const CylindricalCoord<T>& b) const
 {
   T mag1, mag2;
   mag1 = ~*this;
@@ -63,8 +64,10 @@ bool CylindricalCoord<T>::operator>(const CylindricalCoord<T>& b)
 }
 
 template<class T>
-const T& CylindricalCoord<T>::operator[](const int i) const {
-  switch(i) {
+const T& CylindricalCoord<T>::operator[](const int i) const
+{
+  switch(i)
+  {
     case 0:
       return m_r;
     case 1:
@@ -77,8 +80,10 @@ const T& CylindricalCoord<T>::operator[](const int i) const {
 }
  
 template<class T>
-T& CylindricalCoord<T>::operator[](const int i) {
-  switch(i) {
+T& CylindricalCoord<T>::operator[](const int i)
+{
+  switch(i)
+  {
     case 0:
       return m_r;
     case 1:
@@ -90,12 +95,27 @@ T& CylindricalCoord<T>::operator[](const int i) {
   }
 }
 
+/************************** Stream Operators **************************/
 template <class T>
-ostream& operator<<(ostream & stream, const CylindricalCoord<T> &b)
+std::ostream& operator<<(std::ostream & stream, const CylindricalCoord<T> &b)
 {
   return (stream << "(" << b[0] << ", " << b[1] << ", " << b[2] << ")");
 }
 
+template <class T>
+std::istream& operator>>(std::istream & stream, CylindricalCoord<T> &b)
+{
+  std::cout << "Enter the r value: ";
+  stream >> b[0];
+  std::cout << "Enter the theta value: ";
+  stream >> b[1];
+  std::cout << "Enter the z value: ";
+  stream >> b[2];
+  
+  return stream;
+}
+
+/************************** Other **************************/
 template <class T>
 std::string CylindricalCoord<T>::cartesianCoord() const
 {

@@ -26,7 +26,8 @@ int main()
  
   std::cout<<"Please enter the file name (including extension)"<< std::endl;
   std::cin>>file;
-  
+ 
+  std::cout << std::endl;
   std::ifstream inFile (file.c_str());
   
   if (inFile.is_open())
@@ -44,28 +45,26 @@ int main()
     }
 	
     inFile.close();
-	std::cout << "Num points: " << vect.size() << std::endl;
 	
 	if(vect.size() < 5)
     {
-	  std::cout << "There are not enough entries in the file to do all of the desired calculations. Will perform " 
-	            << vect.size()-1 << " of the calculations and apply the 1-norm over the set." << std::endl;
+	  std::cout << "There are not enough entries in the file to do all of the desired calculations. Will perform as many of the calculations possible and apply the 1-norm over the set." << std::endl << std::endl;
 				
 	  if(vect.size() >= 1)
 	  {
 	    p1 = -vect.at(0);
-		std::cout << "The polar reflection of the first point is: " << p1 << std::endl;
+		std::cout << "The polar reflection of " <<  vect.at(0) << " is: " << p1 << std::endl;
 	  }
 	  if(vect.size() >= 2)
 	  {
 	    p2 = !vect.at(1);
-		std::cout << "The reflection of the second point through the z-axis is: " << p2 << std::endl;
+		std::cout << "The reflection of " << vect.at(1) << " through the z-axis is: " << p2<< std::endl;
 	  }
 	  if(vect.size() == 3)
 	  {
-	    std::cout << "There are not enough points given to do the comparison of two points, so will instead perform the Cartesian conversion." << std::endl;
+	    std::cout << std::endl << "There are not enough points given to do the comparison of two points, so will instead perform the Cartesian conversion." << std::endl << std::endl;
 		cartCoord = vect.at(2).cartesianCoord();
-		std::cout << "The Cartesian conversion of the last point is: (" << cartCoord << std::endl;
+		std::cout << "The Cartesian conversion of " << vect.at(2) << " is: " << cartCoord << std::endl;
 	  }
 	  if(vect.size() > 3)
 	  {
@@ -76,16 +75,16 @@ int main()
 	else
 	{
 	  p1 = -vect.at(0);
-      std::cout << "The polar reflection of the first point is: " << p1 << std::endl;
+      std::cout << "The polar reflection of " <<  vect.at(0) << " is: " << p1 << std::endl;
 	  
 	  p2 = !vect.at(1);
-	  std::cout << "The reflection of the second point through the z-axis is: " << p2<< std::endl;
+	  std::cout << "The reflection of " << vect.at(1) << " through the z-axis is: " << p2<< std::endl;
 	  
 	  compare = vect.at(2) > vect.at(3);
 	  std::cout << std::boolalpha << "The statement \"" << vect.at(2) << " > " << vect.at(3) << "\" returned " << compare << std::endl;
 	  
 	  cartCoord = vect.at(4).cartesianCoord();
-	  std::cout << "The Cartesian conversion of the fifth point is: " << cartCoord << std::endl;
+	  std::cout << "The Cartesian conversion of " << vect.at(4) << " is: " << cartCoord << std::endl;
 	}
 
     std::cout << "The 1-norm applied to the set is: " << norm(vect) << std::endl;
