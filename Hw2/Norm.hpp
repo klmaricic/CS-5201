@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////
 
 template <class T>
-T Norm<T>::operator()(std::vector<CylindricalCoord<double> > vect) const
+T Norm<T>::operator()(const std::vector<CylindricalCoord<T> > vect) const
 {
   T sum = 0;
   

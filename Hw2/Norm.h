@@ -17,7 +17,7 @@ class Norm
 	   Pre: 	All of the given coordinates have initialized values
 	   Post:	Returns the sum of the magnitudes of all the cylindrical coordinates in the set
 	*/
-	T operator()(std::vector<CylindricalCoord<double> > vect) const;
+	T operator()(const std::vector<CylindricalCoord<T> > vect) const;
 };
 #include "Norm.hpp"
 #endif

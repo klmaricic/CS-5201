@@ -19,7 +19,7 @@ class CylindricalCoord
   public:
     /************************** Constructors/Destructor  **************************/
     CylindricalCoord(): m_r(0), m_theta(0), m_z(0) {}
-	CylindricalCoord(T r, T theta, T z): m_r(r), m_theta(theta), m_z(z) {}
+	CylindricalCoord(const T r, const T theta, const T z): m_r(r), m_theta(theta), m_z(z) {}
 	CylindricalCoord(const CylindricalCoord<T>& coord): m_r(coord.m_r), m_theta(coord.m_theta), m_z(coord.m_z) {}
 	~CylindricalCoord() {}
 	
