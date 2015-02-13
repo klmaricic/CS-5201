@@ -54,12 +54,12 @@ int main()
 	  if(vect.size() >= 1)
 	  {
 	    p1 = -vect.at(0);
-		std::cout << "The polar reflection of the first point is: (" << p1[0] << ", " << p1[1] << ", " << p1[2] << ")" << std::endl;
+		std::cout << "The polar reflection of the first point is: " << p1 << std::endl;
 	  }
 	  if(vect.size() >= 2)
 	  {
 	    p2 = !vect.at(1);
-		std::cout << "The reflection of the second point through the z-axis is: (" << p2[0] << ", " << p2[1] << ", " << p2[2] << ")" << std::endl;
+		std::cout << "The reflection of the second point through the z-axis is: " << p2 << std::endl;
 	  }
 	  if(vect.size() == 3)
 	  {
@@ -69,25 +69,23 @@ int main()
 	  }
 	  if(vect.size() > 3)
 	  {
-	    compare = vect.at(3) > vect.at(4);
-	    std::cout << std::boolalpha << "The statement \"" << vect.at(3)[0] << ", " << vect.at(3)[1] << ", " << vect.at(3)[2]
-                  << " > " << vect.at(4)[0] << ", " << vect.at(4)[1] <<	 "\" returned: " << compare << std::endl;
+	    compare = vect.at(2) > vect.at(3);
+	    std::cout << std::boolalpha << "The statement \"" << vect.at(2) << " > " << vect.at(3) << "\" returned " << compare << std::endl;
 	  }
 	}
 	else
 	{
 	  p1 = -vect.at(0);
-      std::cout << "The polar reflection of the first point is: (" << p1[0] << ", " << p1[1] << ", " << p1[2] << ")" << std::endl;
+      std::cout << "The polar reflection of the first point is: " << p1 << std::endl;
 	  
 	  p2 = !vect.at(1);
-	  std::cout << "The reflection of the second point through the z-axis is: (" << p2[0] << ", " << p2[1] << ", " << p2[2] << ")" << std::endl;
+	  std::cout << "The reflection of the second point through the z-axis is: " << p2<< std::endl;
 	  
-	  compare = vect.at(3) > vect.at(4);
-	  std::cout << std::boolalpha << "The statement \"(" << vect.at(3)[0] << ", " << vect.at(3)[1] << ", " << vect.at(3)[2]
-                << ") > (" << vect.at(4)[0] << ", " << vect.at(4)[1] <<	 ")\" returned " << compare << std::endl;
+	  compare = vect.at(2) > vect.at(3);
+	  std::cout << std::boolalpha << "The statement \"" << vect.at(2) << " > " << vect.at(3) << "\" returned " << compare << std::endl;
 	  
-	  cartCoord = vect.at(2).cartesianCoord();
-	  std::cout << "The Cartesian conversion of the last point is: " << cartCoord << std::endl;
+	  cartCoord = vect.at(4).cartesianCoord();
+	  std::cout << "The Cartesian conversion of the fifth point is: " << cartCoord << std::endl;
 	}
 
     std::cout << "The 1-norm applied to the set is: " << norm(vect) << std::endl;

@@ -91,6 +91,12 @@ T& CylindricalCoord<T>::operator[](const int i) {
 }
 
 template <class T>
+ostream& operator<<(ostream & stream, const CylindricalCoord<T> &b)
+{
+  return (stream << "(" << b[0] << ", " << b[1] << ", " << b[2] << ")");
+}
+
+template <class T>
 std::string CylindricalCoord<T>::cartesianCoord() const
 {
   T x = m_r*cos(m_theta);

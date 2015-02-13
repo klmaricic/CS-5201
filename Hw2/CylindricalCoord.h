@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+using std::ostream;
 
 template<class T>
 class CylindricalCoord
@@ -83,6 +84,14 @@ class CylindricalCoord
 	   Post:	Returns m_r if i=0, m_theta if i=1, or m_z if i=2. The returned value can be modified.
 	*/
 	T& operator[](const int i);
+	
+	/************************** Stream Operators **************************/
+	/* Purpose:	Stream operator
+	   Pre:		None
+	   Post:	Returns an ostream that represents the given CylindricalCoord
+	*/
+	template<class U> 
+	friend ostream& operator<< (ostream & stream, const CylindricalCoord<T> &b);
 	
 	/* Purpose:	Converts the cylindrical coordinates to cartesian values
 	   Pre:		None
