@@ -86,7 +86,7 @@ class CylindricalCoord
 	T& operator[](const int i);
 	
 	/************************** Stream Operators **************************/
-	/* Purpose:	Stream operator
+	/* Purpose:	Ostream operator
 	   Pre:		None
 	   Post:	Returns an ostream that represents the given CylindricalCoord
 	*/
