@@ -19,7 +19,37 @@ LinearVector<T>::LinearVector()
   m_data_ptr = 0;
 }
 
+template <class T>
+LinearVector<T>::LinearVector(const LinearVector<T>& vect)
+{
+
+}
+
+template <class T>
+LinearVector<T>::~LinearVector()
+{
+
+}
+
 /************************** Operators **************************/
+template <class T>
+T& LinearVector<T>::operator[](const int i)
+{
+
+}
+
+template <class T>
+const T& LinearVector<T>::operator[](const int i) const
+{
+
+}
+
+template <class T>
+LinearVector<T>& LinearVector<T>::operator=(const LinearVector& rhs)
+{
+
+}
+
 template <class T>
 LinearVector<T>& LinearVector<T>::operator=(const T rhs)
 {
@@ -33,24 +63,31 @@ LinearVector<T>& LinearVector<T>::operator=(const T rhs)
 
 /************************** Stream Operators **************************/
 template <class T>
-std::ostream& operator<<(std::ostream & stream, const CylindricalCoord<T> &rhs)
+std::ostream& operator<<(std::ostream & stream, const LinearVector<T> &rhs)
 {
   stream << "<";
-  for(int i = 0; i < m_size-1; i++)
+  for(int i = 0; i < rhs.getSize() - 1; i++)
     stream << rhs[i] << ", ";
 
-  stream << rhs[m_size-1] << ">";
+  stream << rhs[rhs.getSize()-1] << ">";
   return stream;
 }
 
 template <class T>
-std::istream& operator>>(std::istream & stream, CylindricalCoord<T> &rhs)
+std::istream& operator>>(std::istream & stream, LinearVector<T> &rhs)
 {
-  for(int i = 0; i <m_size; i++)
+  for(int i = 0; i < rhs.getSize(); i++)
   {
     std::cout << "Enter the value for vector entry " << i << ": ";
 	stream >> rhs[i];
   }
   
   return stream;
+}
+
+/************************** Other **************************/
+template <class T>
+int LinearVector<T>::getSize() const
+{
+  return m_size;
 }
