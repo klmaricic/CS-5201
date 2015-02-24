@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////
-/// @file driver.cpp
+/// @file Driver.cpp
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement vector analysis
 //////////////////////////////////////////////////////////////////////
@@ -7,7 +7,7 @@
 #include<iostream>
 #include <fstream>
 #include <string>
-#include "CylindricalCoord.h" ###################################################################################################
+#include "LinearVecotr.h"
 #include "Norm.h"				###################################################################################################
 #include <vector>
 #include <iomanip>
@@ -16,8 +16,9 @@ int main (int argc, char *argv[])
 {
   ifstream file;
   int dimensions;
+  std::vector<LinearVector<double> > vect;
   
-  if (argc != 2)
+  if (argc < 2)
     std::cout << "You did not include a file name in the command line arguments. Please execute the program again with the file name." << std::endl;
   else 
   {
@@ -27,21 +28,20 @@ int main (int argc, char *argv[])
 	{
       file >> dimensions;
   
-      for(std::string line; std::getline(inFile, line); )   //read stream line by line
+      for(std::string line; std::getline(file, line); )   //read stream line by line
       {
         std::istringstream in(line);
 
-        std::string type;
+		vect.push_back(LinearVector<double> (dimensions));
+		
+		for(int i = 0; i < dimensions; i++)
+          file >> (vect.back())[i];
 
-        inFile >> r >> theta >> z;
-	    vect.push_back(CylindricalCoord<double> (r,theta, z));
       }
 	
-    inFile.close(); 
+      inFile.close(); 
     }	 
     else 
 	  std::cout<<"Could not open file" << std::endl;
-
-    // the_file is closed implicitly here
   }
 }

@@ -30,3 +30,27 @@ LinearVector<T>& LinearVector<T>::operator=(const T rhs)
 	
   return *this;
 }
+
+/************************** Stream Operators **************************/
+template <class T>
+std::ostream& operator<<(std::ostream & stream, const CylindricalCoord<T> &rhs)
+{
+  stream << "<";
+  for(int i = 0; i < m_size-1; i++)
+    stream << rhs[i] << ", ";
+
+  stream << rhs[m_size-1] << ">";
+  return stream;
+}
+
+template <class T>
+std::istream& operator>>(std::istream & stream, CylindricalCoord<T> &rhs)
+{
+  for(int i = 0; i <m_size; i++)
+  {
+    std::cout << "Enter the value for vector entry " << i << ": ";
+	stream >> rhs[i];
+  }
+  
+  return stream;
+}

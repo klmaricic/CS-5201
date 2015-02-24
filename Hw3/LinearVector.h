@@ -39,6 +39,21 @@ class LinearVector
 	LinearVector<T>& operator=(const LinearVector& rhs);
 	
 	LinearVector<T>& operator=(const T rhs);
+	
+	/************************** Stream Operators **************************/
+	/* Purpose:	Ostream operator
+	   Pre:		b has initialized values
+	   Post:	Returns an ostream that represents the given CylindricalCoord
+	*/
+	template<class U> 
+	friend std::ostream& operator<< (std::ostream & stream, const CylindricalCoord<T> &rhs);
+	
+	/* Purpose:	Istream operator
+	   Pre:		None
+	   Post:	Returns an istream that represents the given CylindricalCoord
+	*/
+	template<class U> 
+	friend std::istream& operator>> (std::istream & stream, CylindricalCoord<T> &rhs);
 
   private:
     T* m_data_ptr;
