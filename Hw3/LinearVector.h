@@ -18,6 +18,10 @@ class LinearVector
 {
   public:
     /************************** Constructors/Destructor  **************************/
+	LinearVector(int n);
+	LinearVector();
+	LinearVector(const LinearVector<T>&);
+	~LinearVector();
 	
 	/************************** Operators **************************/
 	/* Purpose:	Brackets operator
@@ -31,3 +35,16 @@ class LinearVector
 	   Post:	Returns the element located at index i in the vector. The returned value cannot be modified.
 	*/
 	const T& operator[](const int i) const;
+	
+	LinearVector<T>& operator=(const LinearVector& rhs);
+	
+	LinearVector<T>& operator=(const T rhs);
+
+  private:
+    T* m_data_ptr;
+	int m_size;
+};
+#include "LinearVector.hpp"
+#endif
+	
+	
