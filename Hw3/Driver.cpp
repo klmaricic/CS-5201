@@ -42,7 +42,7 @@ int main (int argc, char *argv[])
 	  //for(int i = 0; i < dimensions; i++)
 	    //std::cout << vect.at(i) << std::endl;
     
-	/**
+	
 	  if(dimensions == 1)
 	    std::cout << "There is only one vector given, so the vector calculations cannot be done and the set is linearly independent." << std::endl;
 	  else
@@ -53,13 +53,13 @@ int main (int argc, char *argv[])
 	  }
 	  
 	  std::cout << "The output stream operator performed on the first vector returns: " << vect.at(0) << std::endl;
-	  std::cout << "v1[0] returns: "" << (vect.at(0))[0] << std::endl;
+	  std::cout << "v1[0] returns: " << (vect.at(0))[0] << std::endl;
 	  
 	  if(dimensions != 1)
 	  {
 	    //linear dependence stuff
 	  }
-	*/
+	
 	}	 
     else 
 	  std::cout<<"Could not open file" << std::endl;

@@ -34,13 +34,37 @@ class LinearVector
 	*/
 	const T& operator[](const int i) const;
 	
+	/* Purpose:	Addition operator
+	   Pre:		rhs has initialized values
+	   Post:	Returns the sum of lhs and rhs
+	*/
+	LinearVector<T>& operator+(const LinearVector<T>& rhs) const;
+	
+	/* Purpose:	Subtraction operator
+	   Pre:		rhs has initialized values
+	   Post:	Returns the difference of lhs and rhs
+	*/
+	LinearVector<T>& operator-(const LinearVector<T>& rhs) const;
+	
+	/* Purpose:	Negation operator
+	   Pre:		rhs has initialized values
+	   Post:	Returns the negation of the calling LinearVector
+	*/
+	LinearVector<T>& operator-() const;
+	
+	/* Purpose:	Dot product operator
+	   Pre:		rhs has initialized values
+	   Post:	Returns the dot product of the calling LinearVector and rhs
+	*/
+	T& operator*(const LinearVector<T>& rhs) const;
+	
 	/* Purpose:	LinearVector assignment operator
 	   Pre:		rhs has initialized values
 	   Post:	Returns the calling LinearVector after it has been transformed to have all of the same values as rhs
 	*/
 	LinearVector<T>& operator=(const LinearVector& rhs);
 	
-	/* Purpose:	Value assignment operator
+	/* Purpose:	Scalar assignment operator
 	   Pre:		rhs has initialized values
 	   Post:	Returns the calling LinearVector after it has had all of its elements assigned to the value of rhs
 	*/
@@ -64,13 +88,25 @@ class LinearVector
 	/************************** Other **************************/
 	/* Purpose:	Gets the size of the LinearVector
 	   Pre:		None
-	   Post:	Returns the value of m_size of the LinearVector
+	   Post:	Returns the value of m_size of the calling LinearVector
 	*/
-	int getSize() const;
+	const int getSize() const;
+	
+	/* Purpose:	Sets the size of the calling LinearVector
+	   Pre:		None
+	   Post:	If the calling LinearVector's size did not match the setSize parameter value, then it deletes all of its old elements, sets its size, and allocates new elements
+	*/
+	void setSize(int n);
 
   private:
     T* m_data_ptr;
 	int m_size;
+	
+	/* Purpose:	Copies the elements of vect into the calling object
+	   Pre:		None
+	   Post:	Changes all of the calling LinearVector's elements to match vect's elements
+	*/
+	void vectCopy(const LinearVector<T>& vect);
 };
 #include "LinearVector.hpp"
 #endif

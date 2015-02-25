@@ -22,32 +22,85 @@ LinearVector<T>::LinearVector()
 template <class T>
 LinearVector<T>::LinearVector(const LinearVector<T>& vect)
 {
-
+  m_size = vect.getSize();
+  m_data_ptr = new T[m_size];
+  
+  vectCopy(vect);
 }
 
 template <class T>
 LinearVector<T>::~LinearVector()
 {
-
+  delete [] m_data_ptr;
 }
 
 /************************** Operators **************************/
 template <class T>
 T& LinearVector<T>::operator[](const int i)
 {
-
+  return m_data_ptr[i];
 }
 
 template <class T>
 const T& LinearVector<T>::operator[](const int i) const
 {
+  return m_data_ptr[i];
+}
 
+template <class T>
+LinearVector<T>& LinearVector<T>::operator+(const LinearVector<T>& rhs) const
+{
+  LinearVector<T> result(*this);
+  
+  for(int i = 0; i < result.getSize(); i++)
+    result[i] += rhs[i];
+  
+  return result;   
+}
+
+template <class T>
+LinearVector<T>& LinearVector<T>::operator-(const LinearVector<T>& rhs) const
+{
+  LinearVector<T> result(*this);
+  
+  for(int i = 0; i < result.getSize(); i++)
+    result[i] -= rhs[i];
+  
+  return result;   
+}
+
+template <class T>
+LinearVector<T>& LinearVector<T>::operator-() const
+{
+  LinearVector<T> result(*this);
+  
+  for(int i = 0; i < result.getSize(); i++)
+    result[i] = -result[i];
+  
+  return result;   
+}
+
+template <class T>
+T& LinearVector<T>::operator*(const LinearVector<T>& rhs) const
+{
+  T result = 0;
+  
+  for(int i = 0; i < m_size; i++)
+    result += ((*this)[i])*(rhs[i]);
+	
+  return result;
 }
 
 template <class T>
 LinearVector<T>& LinearVector<T>::operator=(const LinearVector& rhs)
 {
-
+  if(m_data_ptr != rhs.m_data_ptr)
+  {
+    setSize(rhs.getSize());
+	vectCopy(rhs);
+  }
+  
+  return *this;
 }
 
 template <class T>
@@ -87,7 +140,28 @@ std::istream& operator>>(std::istream & stream, LinearVector<T> &rhs)
 
 /************************** Other **************************/
 template <class T>
-int LinearVector<T>::getSize() const
+const int LinearVector<T>::getSize() const
 {
   return m_size;
+}
+
+template <class T>
+void LinearVector<T>::vectCopy(const LinearVector<T>& vect)
+{
+  T* p = m_data_ptr + m_size;
+  T* q = vect.m_data_ptr + m_size;
+  
+  for(int i = 0; i < m_size; i++)
+    m_data_ptr[i] = vect.m_data_ptr[i];
+}
+
+template <class T>
+void LinearVector<T>::setSize(int n)
+{
+  if(n != m_size)
+  {
+    delete [] m_data_ptr;
+	m_size = n;
+	m_data_ptr = new T[n];
+  }
 }
