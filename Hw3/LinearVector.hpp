@@ -48,7 +48,7 @@ const T& LinearVector<T>::operator[](const int i) const
 }
 
 template <class T>
-LinearVector<T>& LinearVector<T>::operator+(const LinearVector<T>& rhs) const
+LinearVector<T> LinearVector<T>::operator+(const LinearVector<T>& rhs) const
 {
   LinearVector<T> result(*this);
   
@@ -59,7 +59,7 @@ LinearVector<T>& LinearVector<T>::operator+(const LinearVector<T>& rhs) const
 }
 
 template <class T>
-LinearVector<T>& LinearVector<T>::operator-(const LinearVector<T>& rhs) const
+LinearVector<T> LinearVector<T>::operator-(const LinearVector<T>& rhs) const
 {
   LinearVector<T> result(*this);
   
@@ -81,7 +81,7 @@ LinearVector<T>& LinearVector<T>::operator-() const
 }
 
 template <class T>
-T& LinearVector<T>::operator*(const LinearVector<T>& rhs) const
+T LinearVector<T>::operator*(const LinearVector<T>& rhs) const
 {
   T result = 0;
   

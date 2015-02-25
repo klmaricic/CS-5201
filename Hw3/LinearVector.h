@@ -38,13 +38,13 @@ class LinearVector
 	   Pre:		rhs has initialized values
 	   Post:	Returns the sum of lhs and rhs
 	*/
-	LinearVector<T>& operator+(const LinearVector<T>& rhs) const;
+	LinearVector<T> operator+(const LinearVector<T>& rhs) const;
 	
 	/* Purpose:	Subtraction operator
 	   Pre:		rhs has initialized values
 	   Post:	Returns the difference of lhs and rhs
 	*/
-	LinearVector<T>& operator-(const LinearVector<T>& rhs) const;
+	LinearVector<T> operator-(const LinearVector<T>& rhs) const;
 	
 	/* Purpose:	Negation operator
 	   Pre:		rhs has initialized values
@@ -56,7 +56,7 @@ class LinearVector
 	   Pre:		rhs has initialized values
 	   Post:	Returns the dot product of the calling LinearVector and rhs
 	*/
-	T& operator*(const LinearVector<T>& rhs) const;
+	T operator*(const LinearVector<T>& rhs) const;
 	
 	/* Purpose:	LinearVector assignment operator
 	   Pre:		rhs has initialized values
