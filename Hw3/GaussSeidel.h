@@ -4,9 +4,11 @@
 /// @brief Write a templated class to implement the GaussSeidel Iteration Method
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __Jacobi_H_INCLUDED
-#define __Jacobi_H_INCLUDED
+#ifndef __GaussSeidel_H_INCLUDED
+#define __GaussSeidel_H_INCLUDED
 #include <vector>
+#include <cmath>
+#include<iostream>
 
 template<class T>
 class GaussSeidel

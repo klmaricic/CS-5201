@@ -70,7 +70,7 @@ LinearVector<T> LinearVector<T>::operator-(const LinearVector<T>& rhs) const
 }
 
 template <class T>
-LinearVector<T>& LinearVector<T>::operator-() const
+LinearVector<T> LinearVector<T>::operator-() const
 {
   LinearVector<T> result(*this);
   
@@ -88,6 +88,17 @@ T LinearVector<T>::operator*(const LinearVector<T>& rhs) const
   for(int i = 0; i < m_size; i++)
     result += ((*this)[i])*(rhs[i]);
 	
+  return result;
+}
+
+template <class T>
+LinearVector<T> LinearVector<T>::operator*(const T rhs) const
+{
+  LinearVector<T> result(*this);
+  
+  for(int i = 0; i < result.getSize(); i++)
+    result[i] *= rhs;
+  
   return result;
 }
 

@@ -58,6 +58,12 @@ class LinearVector
 	*/
 	T operator*(const LinearVector<T>& rhs) const;
 	
+	/* Purpose:	Scalar multiply operator
+	   Pre:		rhs has initialized values
+	   Post:	Returns the result of multiplying the calling LinearVector with the scalar rhs
+	*/
+	LinearVector<T>& operator*(const T rhs) const;
+	
 	/* Purpose:	LinearVector assignment operator
 	   Pre:		rhs has initialized values
 	   Post:	Returns the calling LinearVector after it has been transformed to have all of the same values as rhs
