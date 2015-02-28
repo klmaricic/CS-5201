@@ -47,13 +47,13 @@ int main (int argc, char *argv[])
 	    std::cout << "There is only one vector given, so the vector calculations cannot be done and the set is linearly independent." << std::endl;
 	  else
 	  {
-	    std::cout << vect.at(0) << " + " << vect.at(1) << " = " << (vect.at(0)+vect.at(1)) << std::endl;
-		std::cout << vect.at(0) << " - " << vect.at(1) << " = " << (vect.at(0)-vect.at(1)) << std::endl;
-		std::cout << vect.at(0) << " * " << vect.at(1) << " = " << (vect.at(0)*vect.at(1)) << std::endl;
+	    std::cout << vect[0] << " + " << vect[1] << " = " << (vect[0]+vect[1]) << std::endl;
+		std::cout << vect[0] << " - " << vect[1] << " = " << (vect[0]-vect[1]) << std::endl;
+		std::cout << vect[0] << " * " << vect[1] << " = " << (vect[0]*vect[1]) << std::endl;
 	  }
 	  
 	  std::cout << "The output stream operator performed on the first vector returns: " << vect.at(0) << std::endl;
-	  std::cout << "v1[0] returns: " << (vect.at(0))[0] << std::endl;
+	  std::cout << "v1[0] returns: " << vect[0][0] << std::endl;
 	  
 	  if(dimensions != 1)
 	  {
