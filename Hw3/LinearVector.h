@@ -68,7 +68,7 @@ class LinearVector
 	   Pre:		rhs has initialized values
 	   Post:	Returns the calling LinearVector after it has been transformed to have all of the same values as rhs
 	*/
-	LinearVector<T>& operator=(const LinearVector& rhs);
+	LinearVector<T>& operator=(const LinearVector<T>& rhs);
 	
 	/* Purpose:	Scalar assignment operator
 	   Pre:		rhs has initialized values

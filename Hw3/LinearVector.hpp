@@ -103,7 +103,7 @@ LinearVector<T> LinearVector<T>::operator*(const T rhs) const
 }
 
 template <class T>
-LinearVector<T>& LinearVector<T>::operator=(const LinearVector& rhs)
+LinearVector<T>& LinearVector<T>::operator=(const LinearVector<T>& rhs)
 {
   if(m_data_ptr != rhs.m_data_ptr)
   {
