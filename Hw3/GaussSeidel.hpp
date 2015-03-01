@@ -58,7 +58,7 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
 	if(depDetermined)
 	{
 	  std::cout << "The system is linearly dependent" << std::endl;
-	  std::cout << "The linear combination is: " << scalar << "*" << vect[1] << "=" << vect[0] << std::endl;
+	  std::cout << "The linear combination found is: " << scalar << "*" << vect[1] << "=" << vect[0] << std::endl;
 	}
     else
     {
@@ -129,6 +129,15 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
 	  if(depDetermined)
 	  {
 	    std::cout << "The system is linearly dependent" << std::endl;
+		std::cout << "The linear combination found is: " << std::endl;
+		
+		for(int i = 0; i < sysSize-2; i++)
+		{
+		  if(aNew[i] != 0)
+		    std::cout << aNew[i] << "*" << vect[i] << "+";
+		}
+		  
+		std::cout << aNew[sysSize-2] << "*" << vect[sysSize-2] << "=" << vect[sysSize-1] << std::endl;
 	  }
     }
   }	  
