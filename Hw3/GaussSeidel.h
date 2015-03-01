@@ -16,8 +16,19 @@ class GaussSeidel
   public:
 	/************************** Operator **************************/
 	/* Purpose:	Parenthesis operator
-	   Pre: 	All of the given coordinates have initialized values
+	   Pre: 	T == int (compare) must be defined
+	   Pre: 	T/T(division) must be defined, and results in type double (or implicitly castable to double)
+	   Pre: 	T*double(multiplication) must be defined and results in type T (or implicitly castable to T)
+	   Pre: 	T != T (negative comparison) must be defined
+	   Pre: 	T = T (assignment) must be defined
+	   Pre: 	T - T (subtraction) must be defined and results in type T (or implicitly castable to T)
+	   Pre: 	fabs(T) must be defined
+	   Pre: 	LinearVector<T>*T (array multiplication) must be defined and result in type LinearVector<T> (or implicitly castable to LinearVector<T>)
+	   Pre: 	double = T  (assignment) must work (T must be able to be implicitly casted to double)
+	   Pre: 	T > double (greater than) must be defined
+	   Pre: 	<< T (stream) must be defined
 	   Post:	Outputs whether the given set is linearly dependent or not. If it is dependent, then outputs the linear combination.
+	   Post:	Outputs the tolerance of the process
 	*/
 	void operator()(const std::vector<LinearVector<T> > vect) const;
 };
