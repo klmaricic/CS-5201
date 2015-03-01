@@ -8,7 +8,7 @@
 #include <fstream>
 #include <string>
 #include "LinearVector.h"
-//#include "Norm.h"				###################################################################################################
+#include "GaussSeidel.h"
 #include <vector>
 #include <iomanip>
 
@@ -16,6 +16,7 @@ int main (int argc, char *argv[])
 {
   int dimensions;
   std::vector<LinearVector<double> > vect;
+  GaussSeidel<double> linearDependence;
   
   if (argc < 2)
     std::cout << "You did not include a file name in the command line arguments. Please execute the program again with the file name." << std::endl;
@@ -57,7 +58,7 @@ int main (int argc, char *argv[])
 	  
 	  if(dimensions != 1)
 	  {
-	    //linear dependence stuff
+	    linearDependence(vect);
 	  }
 	
 	}	 

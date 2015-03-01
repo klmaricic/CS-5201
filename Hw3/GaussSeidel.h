@@ -7,7 +7,7 @@
 #ifndef __GaussSeidel_H_INCLUDED
 #define __GaussSeidel_H_INCLUDED
 #include <vector>
-#include <cmath>
+#include <math.h>
 #include<iostream>
 
 template<class T>
