@@ -54,7 +54,7 @@ int main (int argc, char *argv[])
 	  }
 	  
 	  std::cout << "The output stream operator performed on the first vector returns: " << vect.at(0) << std::endl;
-	  std::cout << "v1[0] returns: " << vect[0][0] << std::endl;
+	  std::cout << "v1[0] returns: " << vect[0][0] << std::endl << std::endl;
 	  
 	  if(dimensions != 1)
 	  {

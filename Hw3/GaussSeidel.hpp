@@ -80,6 +80,9 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
 		    }
 		
 		    aNew[i] = (aNew[i]/vect[i][i]);
+			std::cout << "ITERATION: "<< numIterations <<std::endl;
+			std::cout << "aNew: " << aNew <<std::endl;
+			std::cout << "sysSize: " <<sysSize << std::endl << std::endl;
 	      }
 
 	      if(numIterations > 0)
@@ -128,7 +131,7 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
 	
 	  if(depDetermined)
 	  {
-	    std::cout << "The system is linearly dependent" << std::endl;
+	    std::cout << "The system converges so it is linearly dependent." << std::endl;
 		std::cout << "The linear combination found is: " << std::endl;
 		
 		for(int i = 0; i < sysSize-2; i++)
@@ -139,6 +142,10 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
 		  
 		std::cout << aNew[sysSize-2] << "*" << vect[sysSize-2] << "=" << vect[sysSize-1] << std::endl;
 	  }
+	  else
+	    std::cout << "The system does not converge so it is linearly independent." << std::endl;
     }
+	
+	std::cout << "The tolerance used for the Gauss-Seidel iteration process was " << TOLERANCE << std::endl;
   }	  
 }
