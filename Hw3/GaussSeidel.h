@@ -30,7 +30,7 @@ class GaussSeidel
 	   Post:	Outputs whether the given set is linearly dependent or not. If it is dependent, then outputs the linear combination.
 	   Post:	Outputs the tolerance of the process
 	*/
-	void operator()(const std::vector<LinearVector<T> > vect) const;
+	void operator()(std::vector<LinearVector<T> > vect) const;
 };
 #include "GaussSeidel.hpp"
 #endif

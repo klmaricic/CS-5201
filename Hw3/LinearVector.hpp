@@ -117,8 +117,6 @@ LinearVector<T>& LinearVector<T>::operator=(const LinearVector<T>& rhs)
 template <class T>
 LinearVector<T>& LinearVector<T>::operator=(const T rhs)
 {
-  T* p = m_data_ptr + m_size;
-  
   for(int i = 0; i < m_size; i++)
     m_data_ptr[i] = rhs;
 	
@@ -151,7 +149,7 @@ std::istream& operator>>(std::istream & stream, LinearVector<T> &rhs)
 
 /************************** Other **************************/
 template <class T>
-const int LinearVector<T>::getSize() const
+int LinearVector<T>::getSize() const
 {
   return m_size;
 }
@@ -170,9 +168,6 @@ void LinearVector<T>::setSize(int n)
 template <class T>
 void LinearVector<T>::vectCopy(const LinearVector<T>& vect)
 {
-  T* p = m_data_ptr + m_size;
-  T* q = vect.m_data_ptr + m_size;
-  
   for(int i = 0; i < m_size; i++)
     m_data_ptr[i] = vect.m_data_ptr[i];
 }

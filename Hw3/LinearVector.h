@@ -79,9 +79,7 @@ class LinearVector
 	*/
 	LinearVector<T>& operator=(const LinearVector<T>& rhs);
 	
-	/* Purpose:	Scalar assignment operator
-	   Pre:		T* + int (addition) must be defined and results in type T (or implicitly castable to T)
-       Pre:		T* = T* (assignment) must be defined	 
+	/* Purpose:	Scalar assignment operator	 
 	   Pre:		T*[int] = T (assignment) must be defined
 	   Post:	Returns the calling LinearVector after it has had all of its elements assigned to the value of rhs
 	*/
@@ -107,7 +105,7 @@ class LinearVector
 	   Pre:		None
 	   Post:	Returns the value of m_size of the calling LinearVector
 	*/
-	const int getSize() const;
+	int getSize() const;
 	
 	/* Purpose:	Sets the size of the calling LinearVector
 	   Pre:		delete [] T must be defined
@@ -121,8 +119,6 @@ class LinearVector
 	int m_size;
 	
 	/* Purpose:	Copies the elements of vect into the calling object
-	   Pre:		T* + int (addition) must be defined and results in type T (or implicitly castable to T)
-       Pre:		T* = T* (assignment) must be defined
 	   Pre:		T*[int] = T*[int] must be defined
 	   Post:	Changes all of the calling LinearVector's elements to match vect's elements
 	*/

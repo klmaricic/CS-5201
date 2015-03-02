@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////
 
 template <class T>
-void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
+void GaussSeidel<T>::operator()(std::vector<LinearVector<T> > vect) const
 {
   bool depDetermined = true;
   bool hasDiagZero = false;
@@ -13,15 +13,20 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
   double scalar = 0;
   const double TOLERANCE = 0.000001;
   const int MAX_ITERATIONS = 10000;
+  int maxIndex, maxZeros;
   int sysSize = 1;
   int numIterations = 0;
   LinearVector<T> aOld (vect.size());
   LinearVector<T> aNew (vect.size());
   LinearVector<T> vectSum (vect.size());
+  LinearVector<T> numZeros (vect.size());
+  LinearVector<T> temp (vect.size());
+  LinearVector<T> orderedMaxZeros (vect.size());
   
   aOld = 0;
   aNew = 0;
   vectSum = 0;
+  numZeros = 0;
  
 
   for(int i = 0; i < vect.size(); i++)
@@ -33,12 +38,96 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
 	}
   }
   
+  //If the system has a zero in the diagonal, it will attempt to pivot to solve the issue
   if(hasDiagZero)
   {
-    std::cout << "There is a zero element in the diagonal, so the Gauss-Seidel method could not be performed on them." << std::endl;
-	std::cout << "Because of this, the set is linearly independent." << std::endl;
+    hasDiagZero = false;
+	
+    //Adds up how many of the vectors have a zero value as their element i
+    for(int i =0; i < vect.size(); i++)
+	{
+	  for(int j =0; j < vect.size(); j++)
+      {
+	    if(vect[j][i] == 0)
+		{
+		  numZeros[i]++;
+		  
+		  //if all of the vectors have a 0 value at index i, then the system cannot be pivoted to solve the issue
+		  if(numZeros[i] == vect.size())
+		    hasDiagZero = true;
+		}
+	  }
+	}
+	
+	if(!hasDiagZero)
+	{
+	  int tempIndex = 0;
+      //Orders by descending value which diagonal spots have the most possible zero values	
+	  while(maxZeros > -1)
+	  {
+	    maxZeros = -1;
+		
+        for(int i = 0; i < numZeros.getSize(); i++)
+	    {
+	      if(numZeros[i] > maxZeros)
+	      {
+		    maxZeros = numZeros[i];
+		    maxIndex = i;
+		  }
+        }
+		
+		if(tempIndex < orderedMaxZeros.getSize())
+          orderedMaxZeros[tempIndex] = maxIndex;
+		  
+	    numZeros[maxIndex] = -1;
+		tempIndex++;
+	  }
+
+	  //Attempts to pivot the system so that it has no zero values in the diagonal
+	  for(int i = 0; i < orderedMaxZeros.getSize(); i++)
+	  {
+	    if(hasDiagZero)
+	      break;
+	    else if(vect[orderedMaxZeros[i]][orderedMaxZeros[i]] == 0)
+	    {
+	      for(int j = orderedMaxZeros.getSize()-1; j >= 0; j--)
+		  {
+		    if(vect[orderedMaxZeros[j]][orderedMaxZeros[i]] != 0)
+		    {
+			  temp = vect[orderedMaxZeros[i]];
+			  vect[orderedMaxZeros[i]] = vect[orderedMaxZeros[j]];
+			  vect[orderedMaxZeros[j]] = temp;
+		  	  break;
+		    }
+		    else if(j == 0)
+		      hasDiagZero = true;
+		  }
+		}
+	  }
+	  
+	  //Checks if there are still zeros in the diagonal after pivoting
+	  for(int i = 0; i < vect.size(); i++)
+      {
+        if(vect[i][i] == 0)
+	    {
+	      hasDiagZero = true;
+	      break;
+	    }
+      }
+	}
+	
+	if(!hasDiagZero)
+	{
+	  std::cout << "The system had to be pivoted due to a zero element in the diagonal." << std::endl;
+	}
+	else
+    {
+      std::cout << "There is a zero element in the diagonal that could not be pivoted out, so the Gauss-Seidel method could not be performed on the system." << std::endl;
+	  std::cout << "Because of this, the set is linearly independent." << std::endl;
+	}
   }
-  else
+  
+  if(!hasDiagZero)
   {
     if(vect[1][0] == 0)
 	  depDetermined = false;
