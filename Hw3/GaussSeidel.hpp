@@ -8,7 +8,7 @@ template <class T>
 void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
 {
   bool depDetermined = true;
-  bool diagDom = true;
+  bool hasDiagZero = false;
   double maxDiff = 0;
   double scalar = 0;
   const double TOLERANCE = 0.000001;
@@ -28,14 +28,14 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
   {
     if(vect[i][i] == 0)
 	{
-	  diagDom = false;
+	  hasDiagZero = true;
 	  break;
 	}
   }
   
-  if(!diagDom)
+  if(hasDiagZero)
   {
-    std::cout << "The given entries are not diagonally dominant, so the Gauss-Seidel method could not be performed on them." << std::endl;
+    std::cout << "There is a zero element in the diagonal, so the Gauss-Seidel method could not be performed on them." << std::endl;
 	std::cout << "Because of this, the set is linearly independent." << std::endl;
   }
   else
@@ -64,9 +64,12 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
     {
       sysSize++;
 	
+	  //Increase the system size until either the system size cannot be increased or the convergence is found
       while((sysSize < vect.size()) && (!depDetermined))
 	  {
 	    numIterations = 0;
+		
+		//Run through iterations on the current system size until either it reaches the iteration limit or the convergence is found
 	    while((numIterations < MAX_ITERATIONS) && (!depDetermined))
 	    {
 	      for(int i = 0; i < sysSize; i++)
@@ -80,9 +83,6 @@ void GaussSeidel<T>::operator()(const std::vector<LinearVector<T> > vect) const
 		    }
 		
 		    aNew[i] = (aNew[i]/vect[i][i]);
-			std::cout << "ITERATION: "<< numIterations <<std::endl;
-			std::cout << "aNew: " << aNew <<std::endl;
-			std::cout << "sysSize: " <<sysSize << std::endl << std::endl;
 	      }
 
 	      if(numIterations > 0)

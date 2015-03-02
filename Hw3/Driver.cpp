@@ -39,11 +39,7 @@ int main (int argc, char *argv[])
       }
 	
       file.close(); 
-	  
-	  //for(int i = 0; i < dimensions; i++)
-	    //std::cout << vect.at(i) << std::endl;
-    
-	
+
 	  if(dimensions == 1)
 	    std::cout << "There is only one vector given, so the vector calculations cannot be done and the set is linearly independent." << std::endl;
 	  else
@@ -57,10 +53,7 @@ int main (int argc, char *argv[])
 	  std::cout << "v1[0] returns: " << vect[0][0] << std::endl << std::endl;
 	  
 	  if(dimensions != 1)
-	  {
 	    linearDependence(vect);
-	  }
-	
 	}	 
     else 
 	  std::cout<<"Could not open file" << std::endl;
