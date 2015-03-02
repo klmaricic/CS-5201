@@ -23,69 +23,80 @@ class LinearVector
 	
 	/************************** Operators **************************/
 	/* Purpose:	Brackets operator
-	   Pre:		The calling object has initialized values
+	   Pre:		i must be in the range of the LinearVector
+	   Pre:		T* (pointer) must be defined
+	   Pre:		T*[int] must be defined
 	   Post:	Returns the element located at index i in the LinearVector. The returned value can be modified.
 	*/
 	T& operator[](const int i);
 	
 	/* Purpose:	Brackets operator
-	   Pre:		The calling object has initialized values
+	   Pre:		i must be in the range of the LinearVector
+	   Pre:		T* (pointer) must be defined
+	   Pre:		T*[int] must be defined
 	   Post:	Returns the element located at index i in the LinearVector. The returned value cannot be modified.
 	*/
 	const T& operator[](const int i) const;
 	
 	/* Purpose:	Addition operator
-	   Pre:		rhs has initialized values
-	   Post:	Returns the sum of lhs and rhs
+	   Pre:		T += T (in place addition) must be defined
+	   Post:	Returns the resulting sum of the calling LinearVector and rhs
 	*/
 	LinearVector<T> operator+(const LinearVector<T>& rhs) const;
 	
 	/* Purpose:	Subtraction operator
-	   Pre:		rhs has initialized values
-	   Post:	Returns the difference of lhs and rhs
+	   Pre:		T -= T (in place subtraction) must be defined
+	   Post:	Returns the resulting difference of the calling LinearVector and rhs
 	*/
 	LinearVector<T> operator-(const LinearVector<T>& rhs) const;
 	
 	/* Purpose:	Negation operator
-	   Pre:		rhs has initialized values
+	   Pre:		-T (negation) must be defined
+	   Pre:		T = T (assignment) must be defined
 	   Post:	Returns the negation of the calling LinearVector
 	*/
 	LinearVector<T> operator-() const;
 	
 	/* Purpose:	Dot product operator
-	   Pre:		rhs has initialized values
+	   Pre:		T = int (assignment) must be defined
+	   Pre:		T*T (multiplication) must be defined
+	   Pre:		T += T (in place addition) must be defined
 	   Post:	Returns the dot product of the calling LinearVector and rhs
 	*/
 	T operator*(const LinearVector<T>& rhs) const;
 	
 	/* Purpose:	Scalar multiply operator
-	   Pre:		rhs has initialized values
+	   Pre:		T *= T (in place multiplication) must be defined
 	   Post:	Returns the result of multiplying the calling LinearVector with the scalar rhs
 	*/
 	LinearVector<T> operator*(const T rhs) const;
 	
 	/* Purpose:	LinearVector assignment operator
-	   Pre:		rhs has initialized values
+	   Pre: 	T* (pointer) must be defined
+	   Pre:		T* != T* (negative comparison) must be defined
+	   Pre:		vectCopy(LinearVector<T>) must be defined
 	   Post:	Returns the calling LinearVector after it has been transformed to have all of the same values as rhs
 	*/
 	LinearVector<T>& operator=(const LinearVector<T>& rhs);
 	
 	/* Purpose:	Scalar assignment operator
-	   Pre:		rhs has initialized values
+	   Pre:		T* + int (addition) must be defined and results in type T (or implicitly castable to T)
+       Pre:		T* = T* (assignment) must be defined	 
+	   Pre:		T*[int] = T (assignment) must be defined
 	   Post:	Returns the calling LinearVector after it has had all of its elements assigned to the value of rhs
 	*/
 	LinearVector<T>& operator=(const T rhs);
 	
 	/************************** Stream Operators **************************/
 	/* Purpose:	Ostream operator
-	   Pre:		rhs has initialized values
+	   Pre:		<< T (stream) must be defined
 	   Post:	Returns an ostream that represents the given LinearVector
 	*/
 	template<class U> 
 	friend std::ostream& operator<< (std::ostream & stream, const LinearVector<T> &rhs);
 	
 	/* Purpose:	Istream operator
-	   Pre:		None
+	   Pre:		>> T (stream assignment) must be defined
 	   Post:	Returns an istream that represents the given LinearVector
 	*/
 	template<class U> 
@@ -99,7 +110,8 @@ class LinearVector
 	const int getSize() const;
 	
 	/* Purpose:	Sets the size of the calling LinearVector
-	   Pre:		None
+	   Pre:		delete [] T must be defined
+	   Pre:		T* = new T[int] must be defined
 	   Post:	If the calling LinearVector's size did not match the setSize parameter value, then it deletes all of its old elements, sets its size, and allocates new elements
 	*/
 	void setSize(int n);
@@ -109,7 +121,9 @@ class LinearVector
 	int m_size;
 	
 	/* Purpose:	Copies the elements of vect into the calling object
-	   Pre:		None
+	   Pre:		T* + int (addition) must be defined and results in type T (or implicitly castable to T)
+       Pre:		T* = T* (assignment) must be defined
+	   Pre:		T*[int] = T*[int] must be defined
 	   Post:	Changes all of the calling LinearVector's elements to match vect's elements
 	*/
 	void vectCopy(const LinearVector<T>& vect);

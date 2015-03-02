@@ -157,16 +157,6 @@ const int LinearVector<T>::getSize() const
 }
 
 template <class T>
-void LinearVector<T>::vectCopy(const LinearVector<T>& vect)
-{
-  T* p = m_data_ptr + m_size;
-  T* q = vect.m_data_ptr + m_size;
-  
-  for(int i = 0; i < m_size; i++)
-    m_data_ptr[i] = vect.m_data_ptr[i];
-}
-
-template <class T>
 void LinearVector<T>::setSize(int n)
 {
   if(n != m_size)
@@ -175,4 +165,14 @@ void LinearVector<T>::setSize(int n)
 	m_size = n;
 	m_data_ptr = new T[n];
   }
+}
+
+template <class T>
+void LinearVector<T>::vectCopy(const LinearVector<T>& vect)
+{
+  T* p = m_data_ptr + m_size;
+  T* q = vect.m_data_ptr + m_size;
+  
+  for(int i = 0; i < m_size; i++)
+    m_data_ptr[i] = vect.m_data_ptr[i];
 }
