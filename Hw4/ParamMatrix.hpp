@@ -6,7 +6,7 @@
 
 /************************** Constructors/Destructor  **************************/
 template <class T>
-ParamMatrix<T>::ParamMatrix(int n)
+ParamMatrix<T>::ParamMatrix()
 {
   m_dataPtr = 0; //Check on this
   m_rowSize = 0;
@@ -19,6 +19,17 @@ ParamMatrix<T>::ParamMatrix(int numRows, int numCols)
   m_rowSize = numCols;
 }
 
+template <class T>
+ParamMatrix<T>::ParamMatrix(const ParamMatrix<T>& matrix)
+{
+
+}
+
+template <class T>
+ParamMatrix<T>::~ParamMatrix()
+{
+
+}
 /************************** Operators **************************/
 template <class T>
 const T& ParamMatrix<T>::operator()(const int row, const int col) const

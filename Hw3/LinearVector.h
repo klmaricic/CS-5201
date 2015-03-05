@@ -16,9 +16,29 @@ class LinearVector
 {
   public:
     /************************** Constructors/Destructor  **************************/
+	/* Purpose:	constructor
+	   Pre:		none
+	   Post:	Creates a LinearVector object of size n
+	*/
 	LinearVector(int n);
+	
+	/* Purpose:	constructor
+	   Pre:		none
+	   Post:	Creates a LinearVector object of size 0
+	*/
 	LinearVector();
+	
+	/* Purpose:	constructor
+	   Pre:		T[int] must be defined
+	   Pre:		vectCopy(LinearVector<T>) must be defined
+	   Post:	Creates a LinearVector object that is a copy of vect's size and content
+	*/
 	LinearVector(const LinearVector<T>& vect);
+	
+	/* Purpose:	destructor
+	   Pre:		none
+	   Post:	destructs the LinearVector object
+	*/
 	~LinearVector();
 	
 	/************************** Operators **************************/

@@ -19,8 +19,8 @@ class ParamMatrix
   public:
     /************************** Constructors/Destructor  **************************/
 	ParamMatrix();
-	ParamMatrix(int n);
-	ParamMatrix(const ParamMatrix<LinearVector<T> >& matrix);
+	ParamMatrix(int numRows, int numCols);
+	ParamMatrix(const ParamMatrix<T>& matrix);
 	~ParamMatrix();
 	
 	/************************** Operators **************************/
