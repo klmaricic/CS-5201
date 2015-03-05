@@ -34,9 +34,24 @@ class ParamMatrix
 	
 	ParamMatrix<T> operator-(const ParamMatrix<T>& rhs) const;
 	
+	/************************** Other **************************/
+	int rowSize() const;
+	
+	int numRows() const;
+	
+	/************************** Stream Operators **************************/
+	/* Purpose:	Ostream operator
+	   Pre:		<< T (stream) must be defined
+	   Post:	Returns an ostream that represents the given LinearVector
+	*/
+	template<class U> 
+	friend std::ostream& operator<< (std::ostream & stream, const ParamMatrix<T>& matrix);
+	
+	
   private:
     T* m_dataPtr;
     int m_rowSize;
+	int m_numRows;
 };
 #include "ParamMatrix.hpp"
 #endif

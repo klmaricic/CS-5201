@@ -14,5 +14,5 @@
 
 int main (int argc, char *argv[])
 {
-  ParamMatrix<double> matrix;
+  ParamMatrix<double> matrix (5, 5);
 }

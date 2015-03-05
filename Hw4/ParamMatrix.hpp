@@ -17,6 +17,7 @@ ParamMatrix<T>::ParamMatrix(int numRows, int numCols)
 {
   m_dataPtr = new T[numRows*numCols];
   m_rowSize = numCols;
+  m_numRows = numRows;
 }
 
 template <class T>
@@ -60,5 +61,32 @@ ParamMatrix<T> ParamMatrix<T>::operator-(const ParamMatrix<T>& rhs) const
   return result;   
 }
 
+/************************** Stream Operators **************************/
+template <class T>
+std::ostream& operator<<(std::ostream & stream, const ParamMatrix<T>& matrix)
+{
+  for(int i = 0; i < matrix.numRows(); i++)
+  {
+    stream << "<";
+	
+    for(int j = 0; j < matrix.rowSize() - 1; j++)
+      stream << matrix[i*j+1] << ", ";
 
+    stream << matrix[matrix.getSize()-1] << ">" << std::endl;
+  }
+  
+  return stream;
+}
 
+/************************** Other **************************/
+template <class T>
+int ParamMatrix<T>::rowSize() const
+{
+  return m_rowSize;
+}
+
+template <class T>
+int ParamMatrix<T>::numRows() const
+{
+  return m_numRows;
+}
