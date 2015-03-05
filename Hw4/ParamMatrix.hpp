@@ -38,7 +38,16 @@ ParamMatrix<T> ParamMatrix<T>::operator+(const ParamMatrix<T>& rhs) const
   return result;   
 }
 
-
+template <class T>
+ParamMatrix<T> ParamMatrix<T>::operator-(const ParamMatrix<T>& rhs) const
+{
+  ParamMatrix<T> result(*this);
+  
+  for(int i = 0; i < result.getSize(); i++)
+    result[i] -= rhs[i]; //Check if should instead do result(r,c)
+  
+  return result;   
+}
 
 
 

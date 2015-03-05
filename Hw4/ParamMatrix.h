@@ -28,9 +28,11 @@ class ParamMatrix
 	   Pre:		row and col must be in the range of the ParamMatrix
 	   Post:	Returns the element located at row, col inside the ParamMatrix
 	*/
-	const T& operator()(const int row, const int col) const
+	const T& operator()(const int row, const int col) const;
 	
-	ParamMatrix<T> operator+(const ParamMatrix<T>& rhs) const
+	ParamMatrix<T> operator+(const ParamMatrix<T>& rhs) const;
+	
+	ParamMatrix<T> operator-(const ParamMatrix<T>& rhs) const;
 	
   private:
     T* m_dataPtr;
