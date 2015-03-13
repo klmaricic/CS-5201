@@ -82,7 +82,7 @@ std::ostream& operator<<(std::ostream & stream, const ParamMatrix<T>& matrix)
     stream << "<";
 	
     for(int j = 0; j < matrix.rowSize() - 1; j++)
-      stream << matrix[i*j+1] << ", ";
+      stream << matrix[i*matrix.rowSize()+j] << ", ";
 
     stream << matrix[matrix.getSize()-1] << ">" << std::endl;
   }
@@ -110,31 +110,24 @@ std::ifstream& operator>>(std::ifstream & file, ParamMatrix<T> &rhs)
 	    for(int i = 0; i < dimensions; i++)
         {
           file >> rhs[numEntries]; 
-		  std::cout << rhs[numEntries] << ", ";
 		  numEntries++;
         }
 	    numEntries++; //Leave open spot in the row for b
-	    std::cout <<std::endl;
 	  }
 	}
 	else if(numEntries == rhs.getSize()) //If it has inserted all of the rows of the matrix and only has b left
 	{
-	std::cout << "numEntries: " << numEntries << std::endl;
       if(!line.empty())
 	  {
 	    for(int i = 0; i < dimensions; i++)
-		{
-		  //file >> rhs[(i*rhs.rowSize()+rhs.rowSize()-1)];
-		  //std::cout << rhs[(i*rhs.rowSize()+rhs.rowSize()-1)] << ", ";
-		}
+		  file >> rhs[(i*rhs.rowSize()+rhs.rowSize()-1)];
 		
-		numEntries++;
+		break;
 	  }
 	}
     else
       break;	
   }
-  
   return file;
 }
 
