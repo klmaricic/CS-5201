@@ -23,20 +23,31 @@ ParamMatrix<T>::ParamMatrix(int numRows, int numCols)
 template <class T>
 ParamMatrix<T>::ParamMatrix(const ParamMatrix<T>& matrix)
 {
-  
+  m_rowSize = matrix.m_rowSize;
+  m_numRows = matrix.m_numRows;
+  m_dataPtr = new T[m_numRows*m_rowSize];
+
+  for(int i = 0; i < getSize(); i++)
+    m_dataPtr[i] = matrix[i];  
 }
 
 template <class T>
 ParamMatrix<T>::~ParamMatrix()
 {
-
+  delete[] m_dataPtr;
 }
+
 /************************** Operators **************************/
 template <class T>
 const T& ParamMatrix<T>::operator()(const int row, const int col) const
 {
   return m_dataPtr[m_rowSize*row+col];
-  //check to make sure in bounds of the matrix
+}
+
+template <class T>
+T& ParamMatrix<T>::operator()(const int row, const int col)
+{
+  return m_dataPtr[m_rowSize*row+col];
 }
 
 template <class T>
@@ -57,8 +68,59 @@ ParamMatrix<T> ParamMatrix<T>::operator-(const ParamMatrix<T>& rhs) const
   
   for(int i = 0; i < result.getSize(); i++)
     result[i] -= rhs[i];
-  
+ 
   return result;   
+}
+
+template <class T>
+ParamMatrix<T> ParamMatrix<T>::operator*(const ParamMatrix<T>& rhs) const
+{
+  if(m_rowSize != rhs.m_numRows)
+    throw std::string("The number of columns in the first matrix does not equal the number of rows in the second matrix, so multiplication can't be done.");
+  
+  ParamMatrix<T> result(m_numRows, rhs.m_rowSize);
+
+  for(int i = 0; i < result.m_numRows; i++)
+  {
+    for(int j = 0; j < result.m_rowSize; j++)
+    {
+      result(i,j) = 0;
+      for(int k = 0; k < m_rowSize; k++)
+      {
+        result(i,j) += (*this)(i,k)*rhs(k,j);        
+      }
+    }
+  } 
+
+  return result; 
+}
+
+template <class T>
+ParamMatrix<T> ParamMatrix<T>::operator*(const T rhs) const
+{
+  ParamMatrix<T> result(*this);
+
+  for(int i = 0; i < result.getSize(); i++)
+    result[i] *= rhs;
+
+  return result;
+}
+
+template <class T>
+ParamMatrix<T> ParamMatrix<T>::operator*(const LinearVector<T>& rhs) const
+{
+  if(m_rowSize != rhs.getSize())
+    throw std::string("The number of columns in the matrix does not equal the number of entries in the vector, so multiplication can't be done.");
+
+  ParamMatrix<T> result(m_numRows, 1);
+
+  for(int i = 0; i < result.m_numRows; i++)
+  {
+    result(i,0) = 0;
+    for(int j = 0; j < m_rowSize; j++)
+      result(i,0) += (*this)(i,j)*rhs[j];
+  } 
+  return result;
 }
 
 template <class T>
@@ -84,7 +146,7 @@ std::ostream& operator<<(std::ostream & stream, const ParamMatrix<T>& matrix)
     for(int j = 0; j < matrix.rowSize() - 1; j++)
       stream << matrix[i*matrix.rowSize()+j] << ", ";
 
-    stream << matrix[matrix.getSize()-1] << ">" << std::endl;
+    stream << matrix[i*matrix.rowSize()+matrix.rowSize()-1] << ">" << std::endl;
   }
   
   return stream;
@@ -93,38 +155,21 @@ std::ostream& operator<<(std::ostream & stream, const ParamMatrix<T>& matrix)
 template <class T>
 std::ifstream& operator>>(std::ifstream & file, ParamMatrix<T> &rhs)
 {
-  int dimensions;
   int numEntries = 0;
-  
-  file >> dimensions;
-
-  if(rhs.rowSize() != dimensions+1 || rhs.numRows() != dimensions)	
-    rhs.setSize(dimensions, dimensions+1);
-
-  for(std::string line; std::getline(file, line); )   //read stream line by line
-  {	
+ 
+  for(std::string line; getline(file, line); )   //read stream line by line
+  {  	
     if(numEntries < rhs.getSize())
-	{
+    {
       if(!line.empty())
-	  {
-	    for(int i = 0; i < dimensions; i++)
+      {
+        for(int i = 0; i < rhs.rowSize(); i++)
         {
           file >> rhs[numEntries]; 
-		  numEntries++;
+          numEntries++;
         }
-	    numEntries++; //Leave open spot in the row for b
-	  }
-	}
-	else if(numEntries == rhs.getSize()) //If it has inserted all of the rows of the matrix and only has b left
-	{
-      if(!line.empty())
-	  {
-	    for(int i = 0; i < dimensions; i++)
-		  file >> rhs[(i*rhs.rowSize()+rhs.rowSize()-1)];
-		
-		break;
-	  }
-	}
+      }
+    }
     else
       break;	
   }
@@ -160,4 +205,18 @@ template <class T>
 int ParamMatrix<T>::getSize() const
 {
   return m_rowSize*m_numRows;;
+}
+
+template <class T>
+ParamMatrix<T> ParamMatrix<T>::transpose() const
+{
+  ParamMatrix<T> result(m_rowSize, m_numRows);
+
+  for(int i = 0; i < m_numRows; i++)
+  {  
+    for(int j = 0; j <m_rowSize; j++)
+      result(j,i) = (*this)(i,j);
+  }
+
+  return result;
 }

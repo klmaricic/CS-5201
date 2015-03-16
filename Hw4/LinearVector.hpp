@@ -108,7 +108,7 @@ LinearVector<T>& LinearVector<T>::operator=(const LinearVector<T>& rhs)
   if(m_data_ptr != rhs.m_data_ptr)
   {
     setSize(rhs.getSize());
-	vectCopy(rhs);
+    vectCopy(rhs);
   }
   
   return *this;
@@ -129,9 +129,17 @@ std::ostream& operator<<(std::ostream & stream, const LinearVector<T> &rhs)
 {
   stream << "<";
   for(int i = 0; i < rhs.getSize() - 1; i++)
-    stream << rhs[i] << ", ";
+  { 
+    if(fabs(rhs[i]) < 0.0000001)
+      stream << 0 << ", ";
+    else
+      stream << rhs[i] << ", ";
+  }
 
-  stream << rhs[rhs.getSize()-1] << ">";
+  if(fabs(rhs[rhs.getSize()-1]) < 0.0000001)
+    stream << 0 << ">";
+  else
+    stream << rhs[rhs.getSize()-1] << ">";
   return stream;
 }
 
@@ -141,10 +149,25 @@ std::istream& operator>>(std::istream & stream, LinearVector<T> &rhs)
   for(int i = 0; i < rhs.getSize(); i++)
   {
     std::cout << "Enter the value for vector entry " << i << ": ";
-	stream >> rhs[i];
+    stream >> rhs[i];
   }
   
   return stream;
+}
+
+template <class T>
+std::ifstream& operator>>(std::ifstream & file, LinearVector<T> &rhs)
+{
+  for(std::string line; std::getline(file, line); )   //read stream line by line
+  {
+    if(!line.empty())
+    {
+      for(int i = 0; i < rhs.getSize(); i++)
+        file >> rhs[i];
+    }
+  }
+
+  return file;    
 }
 
 /************************** Other **************************/
@@ -160,8 +183,8 @@ void LinearVector<T>::setSize(int n)
   if(n != m_size)
   {
     delete [] m_data_ptr;
-	m_size = n;
-	m_data_ptr = new T[n];
+    m_size = n;
+    m_data_ptr = new T[n];
   }
 }
 
