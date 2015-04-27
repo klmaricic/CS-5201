@@ -104,17 +104,6 @@ ParamMatrix<T> ParamMatrix<T>::operator+(const LowerMatrix<T>& rhs) const
 }
 
 template <class T>
-ParamMatrix<T> ParamMatrix<T>::operator+(const DiagonalMatrix<T>& rhs) const
-{
-  ParamMatrix<T> result(*this);
-
-  for(int row = 0; row < m_numRows; row++)
-      result(row, row) += rhs(row, row);
-
-  return result;
-}
-
-template <class T>
 ParamMatrix<T> ParamMatrix<T>::operator+(const SymmetricMatrix<T>& rhs) const
 {
   ParamMatrix<T> result(*this);
@@ -122,20 +111,6 @@ ParamMatrix<T> ParamMatrix<T>::operator+(const SymmetricMatrix<T>& rhs) const
   for(int row = 0; row < m_numRows; row++)
   {
     for(int col = 0; col < m_rowSize; col++)
-      result(row, col) += rhs(row, col);
-  }
-
-  return result;
-}
-
-template <class T>
-ParamMatrix<T> ParamMatrix<T>::operator+(const TridiagonalMatrix<T>& rhs) const
-{
-  ParamMatrix<T> result(*this);
-
-  for(int row = 0; row < m_numRows; row++)
-  {
-    for(int col = row-1; col <= row+1; col++)
       result(row, col) += rhs(row, col);
   }
 
@@ -182,17 +157,6 @@ ParamMatrix<T> ParamMatrix<T>::operator-(const LowerMatrix<T>& rhs) const
 }
 
 template <class T>
-ParamMatrix<T> ParamMatrix<T>::operator-(const DiagonalMatrix<T>& rhs) const
-{
-  ParamMatrix<T> result(*this);
-
-  for(int row = 0; row < m_numRows; row++)
-    result(row, row) -= rhs(row, row);
-
-  return result;
-}
-
-template <class T>
 ParamMatrix<T> ParamMatrix<T>::operator-(const SymmetricMatrix<T>& rhs) const
 {
   ParamMatrix<T> result(*this);
@@ -207,43 +171,12 @@ ParamMatrix<T> ParamMatrix<T>::operator-(const SymmetricMatrix<T>& rhs) const
 }
 
 template <class T>
-ParamMatrix<T> ParamMatrix<T>::operator-(const TridiagonalMatrix<T>& rhs) const
-{
-  ParamMatrix<T> result(*this);
-
-  for(int row = 0; row < m_numRows; row++)
-  {
-    for(int col = row-1; col <= row+1; col++)
-      result(row, col) -= rhs(row, col);
-  }
-
-  return result;
-}
-
-template <class T>
 ParamMatrix<T> ParamMatrix<T>::operator-() const
 {
   ParamMatrix<T> result(*this);
 
   for(int i = 0; i < result.getSize(); i++)
     result[i] = -result[i];
-
-  return result;
-}
-
-template <class T>
-ParamMatrix<T> ParamMatrix<T>::operator*(const DiagonalMatrix<T>& rhs) const
-{
-  if(m_rowSize != rhs.numRows())
-    throw std::invalid_argument("The number of columns in the first matrix does not equal the number of rows in the second matrix, so multiplication can't be done.");
-
-  ParamMatrix<T> result(m_numRows, rhs.rowSize());
-
-  for(int i = 0; i < result.m_numRows; i++)
-  {
-    for(int j = 0; j < result.m_rowSize; j++)
-      result(i,j) = (*this)(i,j)*rhs[j];
-  }
 
   return result;
 }

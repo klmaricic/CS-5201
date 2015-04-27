@@ -18,9 +18,7 @@
 #include "BaseMatrix.h"
 #include "UpperMatrix.h"
 #include "LowerMatrix.h"
-#include "DiagonalMatrix.h"
 #include "SymmetricMatrix.h"
-#include "TridiagonalMatrix.h"
 
 template<class T>
 class ParamMatrix: public BaseMatrix<T>
@@ -87,24 +85,12 @@ class ParamMatrix: public BaseMatrix<T>
        Post:    Returns the sum of the two matrices
     */
     ParamMatrix<T> operator+(const LowerMatrix<T>& rhs) const;
-
-    /* Purpose: Addition operator
-       Pre:     T += T must be defined
-       Post:    Returns the sum of the two matrices
-    */
-    ParamMatrix<T> operator+(const DiagonalMatrix<T>& rhs) const;
 	
     /* Purpose: Addition operator
        Pre:     T += T must be defined
        Post:    Returns the sum of the two matrices
     */
     ParamMatrix<T> operator+(const SymmetricMatrix<T>& rhs) const;
-
-    /* Purpose: Addition operator
-       Pre:     T += T must be defined
-       Post:    Returns the sum of the two matrices
-    */
-    ParamMatrix<T> operator+(const TridiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Subtraction operator
        Pre:     T-=T must be defined
@@ -128,19 +114,7 @@ class ParamMatrix: public BaseMatrix<T>
        Pre:     T-=T must be defined
        Post:    Returns the difference of the two matrices
     */
-    ParamMatrix<T> operator-(const DiagonalMatrix<T>& rhs) const;
-
-    /* Purpose: Subtraction operator
-       Pre:     T-=T must be defined
-       Post:    Returns the difference of the two matrices
-    */
     ParamMatrix<T> operator-(const SymmetricMatrix<T>& rhs) const;
-
-    /* Purpose: Subtraction operator
-       Pre:     T-=T must be defined
-       Post:    Returns the difference of the two matrices
-    */
-    ParamMatrix<T> operator-(const TridiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Negation operator
        Pre:     -T (negation) must be defined
@@ -148,12 +122,6 @@ class ParamMatrix: public BaseMatrix<T>
        Post:     Returns the negation of the calling matrix
     */
     ParamMatrix<T> operator-() const;
-
-    /* Purpose: Multiplication operator
-       Pre:     T*T must be defined
-       Post:    Returns the product of the two matrices
-    */
-    ParamMatrix<T> operator*(const DiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Multiplication operator
        Pre:     T*T must be defined
