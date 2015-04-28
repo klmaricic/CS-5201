@@ -18,7 +18,7 @@
 ###############################################################################
 
 # Generic GNU g++ compiler flags
-CXX = /usr/bin/g++
+CXX = /usr/bin/clang++
 CXXFLAGS = -g -Wall -W -pedantic-errors
 
 MATRICES = $(wildcard *matrix.h *matrix.hpp)
