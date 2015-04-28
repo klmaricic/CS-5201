@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-/// @file SymmetricMatrix.hpp
+/// @file uppermatrix.hpp
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement a parameterized matrix
 //////////////////////////////////////////////////////////////////////
 
 /************************** Constructors/Destructor  **************************/
 template <class T>
-SymmetricMatrix<T>::SymmetricMatrix()
+UpperMatrix<T>::UpperMatrix()
 {
   m_dataPtr = 0;
   m_rowSize = 0;
 }
 
 template <class T>
-SymmetricMatrix<T>::SymmetricMatrix(int numRows, int numCols)
+UpperMatrix<T>::UpperMatrix(int numRows, int numCols)
 {
   m_dataPtr = new T[numRows*(numRows+1)/2];
   m_rowSize = numCols;
@@ -21,7 +21,7 @@ SymmetricMatrix<T>::SymmetricMatrix(int numRows, int numCols)
 }
 
 template <class T>
-SymmetricMatrix<T>::SymmetricMatrix(const SymmetricMatrix<T>& matrix)
+UpperMatrix<T>::UpperMatrix(const UpperMatrix<T>& matrix)
 {
   m_rowSize = matrix.rowSize();
   m_numRows = matrix.numRows();
@@ -32,7 +32,7 @@ SymmetricMatrix<T>::SymmetricMatrix(const SymmetricMatrix<T>& matrix)
 }
 
 template <class T>
-SymmetricMatrix<T>::SymmetricMatrix(const ParamMatrix<T>& matrix)
+UpperMatrix<T>::UpperMatrix(const ParamMatrix<T>& matrix)
 {
   int index = 0;
   int rowNum = 0;
@@ -43,7 +43,7 @@ SymmetricMatrix<T>::SymmetricMatrix(const ParamMatrix<T>& matrix)
 
   for(int i = 0; i < theoSize(); i++)
   {
-    if(i%rowSize() <= rowNum)
+    if(i%rowSize() >= rowNum)
     {
       m_dataPtr[index] = matrix[i];
       index++;
@@ -55,35 +55,33 @@ SymmetricMatrix<T>::SymmetricMatrix(const ParamMatrix<T>& matrix)
 }
 
 template <class T>
-SymmetricMatrix<T>::~SymmetricMatrix()
+UpperMatrix<T>::~UpperMatrix()
 {
   delete[] m_dataPtr;
 }
 
 /************************** Operators **************************/
 template <class T>
-const T SymmetricMatrix<T>::operator()(const int row, const int col) const
-{
-  if(row < col)
-    return m_dataPtr[row + (col+1)*col/2];
+const T UpperMatrix<T>::operator()(const int row, const int col) const
+{ 
+  if(row > col)
+    return 0;
 
-  return m_dataPtr[col + (row+1)*row/2];
+  return m_dataPtr[m_rowSize*row+col-row*(row+1)/2];
+}
+
+
+template <class T>
+T& UpperMatrix<T>::operator()(const int row, const int col)
+{
+  return m_dataPtr[m_rowSize*row+col-row*(row+1)/2];
 }
 
 template <class T>
-T& SymmetricMatrix<T>::operator()(const int row, const int col)
+UpperMatrix<T> UpperMatrix<T>::operator+(const UpperMatrix<T>& rhs) const
 {
-  if(row < col)
-    return m_dataPtr[row + (col+1)*col/2];
-
-  return m_dataPtr[col + (row+1)*row/2];
-}
-
-template <class T>
-SymmetricMatrix<T> SymmetricMatrix<T>::operator+(const SymmetricMatrix<T>& rhs) const
-{
-  SymmetricMatrix<T> result(*this);
-
+  UpperMatrix<T> result(*this);
+  
   for(int i = 0; i < result.actualSize(); i++)
     result[i] += rhs[i];
 
@@ -91,13 +89,13 @@ SymmetricMatrix<T> SymmetricMatrix<T>::operator+(const SymmetricMatrix<T>& rhs) 
 }
 
 template <class T>
-SymmetricMatrix<T> SymmetricMatrix<T>::operator+(const DiagonalMatrix<T>& rhs) const
+UpperMatrix<T> UpperMatrix<T>::operator+(const DiagonalMatrix<T>& rhs) const
 {
   return rhs+(*this);
 }
 
 template <class T>
-ParamMatrix<T> SymmetricMatrix<T>::operator+(const BaseMatrix<T>& rhs) const
+ParamMatrix<T> UpperMatrix<T>::operator+(const BaseMatrix<T>& rhs) const
 {
   ParamMatrix<T> result(rhs);
 
@@ -105,9 +103,9 @@ ParamMatrix<T> SymmetricMatrix<T>::operator+(const BaseMatrix<T>& rhs) const
 }
 
 template <class T>
-SymmetricMatrix<T> SymmetricMatrix<T>::operator-(const SymmetricMatrix<T>& rhs) const
+UpperMatrix<T> UpperMatrix<T>::operator-(const UpperMatrix<T>& rhs) const
 {
-  SymmetricMatrix<T> result(*this);
+  UpperMatrix<T> result(*this);
 
   for(int i = 0; i < result.actualSize(); i++)
     result[i] -= rhs[i];
@@ -116,23 +114,24 @@ SymmetricMatrix<T> SymmetricMatrix<T>::operator-(const SymmetricMatrix<T>& rhs) 
 }
 
 template <class T>
-SymmetricMatrix<T> SymmetricMatrix<T>::operator-(const DiagonalMatrix<T>& rhs) const
+UpperMatrix<T> UpperMatrix<T>::operator-(const DiagonalMatrix<T>& rhs) const
 {
   return (-rhs)+(*this);
 }
 
 template <class T>
-ParamMatrix<T> SymmetricMatrix<T>::operator-(const BaseMatrix<T>& rhs) const
+ParamMatrix<T> UpperMatrix<T>::operator-(const BaseMatrix<T>& rhs) const
 {
   ParamMatrix<T> result(rhs);
+  result = -result;
 
-  return (-result)+(*this);
+  return result+(*this);
 }
 
 template <class T>
-SymmetricMatrix<T> SymmetricMatrix<T>::operator-() const
+UpperMatrix<T> UpperMatrix<T>::operator-() const
 {
-  SymmetricMatrix<T> result(*this);
+  UpperMatrix<T> result(*this);
 
   for(int i = 0; i < result.actualSize(); i++)
     result[i] = -result[i];
@@ -140,38 +139,21 @@ SymmetricMatrix<T> SymmetricMatrix<T>::operator-() const
   return result;
 }
 
+
 template <class T>
-ParamMatrix<T> SymmetricMatrix<T>::operator*(const DiagonalMatrix<T>& rhs) const
-{
+UpperMatrix<T> UpperMatrix<T>::operator*(const UpperMatrix<T>& rhs) const
+{ 
   if(m_rowSize != rhs.numRows())
     throw std::invalid_argument("The number of columns in the first matrix does not equal the number of rows in the second matrix, so multiplication can't be done.");
 
-  ParamMatrix<T> result(m_numRows, rhs.rowSize());
+  UpperMatrix<T> result(m_numRows, rhs.m_rowSize);
 
   for(int i = 0; i < result.m_numRows; i++)
   {
-    for(int j = 0; j < result.m_rowSize; j++)
-      result(i,j) = (*this)[j]*rhs(i,j);
-  }
-
-  return result;
-}
-
-template <class T>
-ParamMatrix<T> SymmetricMatrix<T>::operator*(const BaseMatrix<T>& rhs) const
-{
-  if(m_rowSize != rhs.numRows())
-    throw std::invalid_argument("The number of columns in the first matrix does not equal the number of rows in the second matrix, so multiplication can't be done.");
-
-
-  ParamMatrix<T> result(m_numRows, rhs.rowSize());
-
-  for(int i = 0; i < result.numRows(); i++)
-  {
-    for(int j = 0; j < result.rowSize(); j++)
+    for(int j = i; j < result.m_rowSize; j++)
     {
       result(i,j) = 0;
-      for(int k = 0; k < result.rowSize(); k++)
+      for(int k = i; k < m_rowSize; k++)
       {
         result(i,j) += (*this)(i,k)*rhs(k,j);
       }
@@ -182,9 +164,49 @@ ParamMatrix<T> SymmetricMatrix<T>::operator*(const BaseMatrix<T>& rhs) const
 }
 
 template <class T>
-SymmetricMatrix<T> SymmetricMatrix<T>::operator*(const T rhs) const
+UpperMatrix<T> UpperMatrix<T>::operator*(const DiagonalMatrix<T>& rhs) const
 {
-  SymmetricMatrix<T> result(*this);
+  if(m_rowSize != rhs.numRows())
+    throw std::invalid_argument("The number of columns in the first matrix does not equal the number of rows in the second matrix, so multiplication can't be done.");
+
+  UpperMatrix<T> result(m_numRows, rhs.m_rowSize);
+
+  for(int i = 0; i < result.m_numRows; i++)
+  {
+    for(int j = i; j < result.rowSize(); j++)
+      result(i,j) = (*this)[j]*rhs(i,j);
+  }
+
+  return result;
+}
+ 
+template <class T>
+ParamMatrix<T> UpperMatrix<T>::operator*(const BaseMatrix<T>& rhs) const
+{
+  if(m_rowSize != rhs.numRows())
+    throw std::invalid_argument("The number of columns in the first matrix does not equal the number of rows in the second matrix, so multiplication can't be done.");
+
+  ParamMatrix<T> result(m_numRows, rhs.rowSize());
+
+  for(int i = 0; i < result.numRows(); i++)
+  {
+    for(int j = 0; j < result.numRows(); j++)
+    {
+      result(i,j) = 0;
+      for(int k = i; k < result.numRows(); k++)
+      {
+        result(i,j) += (*this)(i,k)*rhs(k,j);
+      }
+    }
+  }
+
+  return result;
+}
+
+template <class T>
+UpperMatrix<T> UpperMatrix<T>::operator*(const T rhs) const
+{
+  UpperMatrix<T> result(*this);
 
   for(int i = 0; i < result.getSize(); i++)
     result[i] *= rhs;
@@ -193,7 +215,7 @@ SymmetricMatrix<T> SymmetricMatrix<T>::operator*(const T rhs) const
 }
 
 template <class T>
-ParamMatrix<T> SymmetricMatrix<T>::operator*(const LinearVector<T>& rhs) const
+ParamMatrix<T> UpperMatrix<T>::operator*(const LinearVector<T>& rhs) const
 {
   if(m_rowSize != rhs.getSize())
     throw std::invalid_argument("The number of columns in the matrix does not equal the number of entries in the vector, so multiplication can't be done.");
@@ -203,27 +225,27 @@ ParamMatrix<T> SymmetricMatrix<T>::operator*(const LinearVector<T>& rhs) const
   for(int i = 0; i < result.numRows(); i++)
   {
     result(i,0) = 0;
-    for(int j = 0; j < m_rowSize; j++)
+    for(int j = i; j < m_rowSize; j++)
       result(i,0) += (*this)(i,j)*rhs[j];
   }
-  return result;
+  return result; 
 }
 
 template <class T>
-T& SymmetricMatrix<T>::operator[](const int i)
+T& UpperMatrix<T>::operator[](const int i)
 {
   return m_dataPtr[i];
 }
 
 template <class T>
-const T& SymmetricMatrix<T>::operator[](const int i) const
+const T& UpperMatrix<T>::operator[](const int i) const
 {
   return m_dataPtr[i];
 }
 
 /************************** Stream Operators **************************/
 template <class T>
-std::ostream& operator<<(std::ostream & stream, const SymmetricMatrix<T>& matrix)
+std::ostream& operator<<(std::ostream & stream, const UpperMatrix<T>& matrix)
 {
   for(int row = 0; row < matrix.numRows(); row++)
   {
@@ -239,7 +261,7 @@ std::ostream& operator<<(std::ostream & stream, const SymmetricMatrix<T>& matrix
 }
 
 template <class T>
-std::ifstream& operator>>(std::ifstream & file, SymmetricMatrix<T>& matrix)
+std::ifstream& operator>>(std::ifstream & file, UpperMatrix<T>& matrix)
 {
   int index = 0;
   double temp;
@@ -247,7 +269,7 @@ std::ifstream& operator>>(std::ifstream & file, SymmetricMatrix<T>& matrix)
 
   for(int i = 0; i < matrix.theoSize(); i++)
   {
-    if(i%matrix.rowSize() <= rowNum)
+    if(i%matrix.rowSize() >= rowNum)
     {
       file >> matrix[index];
       index++;
@@ -257,26 +279,26 @@ std::ifstream& operator>>(std::ifstream & file, SymmetricMatrix<T>& matrix)
 
     if(i%matrix.rowSize() == matrix.rowSize()-1)
       rowNum++;
-  }
+  }  
 
   return file;
 }
 
 /************************** Other **************************/
 template <class T>
-int SymmetricMatrix<T>::rowSize() const
+int UpperMatrix<T>::rowSize() const
 {
   return m_rowSize;
 }
 
 template <class T>
-int SymmetricMatrix<T>::numRows() const
+int UpperMatrix<T>::numRows() const
 {
   return m_numRows;
 }
 
 template <class T>
-void SymmetricMatrix<T>::setSize(int numRows, int numCols)
+void UpperMatrix<T>::setSize(int numRows, int numCols)
 {
   if(numRows != m_numRows || numCols != m_rowSize)
   {
@@ -288,15 +310,14 @@ void SymmetricMatrix<T>::setSize(int numRows, int numCols)
 }
 
 template <class T>
-int SymmetricMatrix<T>::actualSize() const
+int UpperMatrix<T>::actualSize() const
 {
   return m_rowSize*(m_rowSize+1)/2;
 }
 
 template <class T>
-int SymmetricMatrix<T>::theoSize() const
+int UpperMatrix<T>::theoSize() const
 {
   return m_rowSize*m_numRows;
 }
-
 

@@ -21,7 +21,9 @@
 CXX = /usr/bin/g++
 CXXFLAGS = -g -Wall -W -pedantic-errors
 
-OBJECTS =  Driver.o
+MATRICES = $(wildcard *matrix.h *matrix.hpp)
+
+OBJECTS =  driver.o
 
 .SUFFIXES: .cpp
 
@@ -40,6 +42,5 @@ clean:
 	-@rm -f driver > /dev/null 2>&1
 	-@rm -f ${OBJECTS} > /dev/null 2>&1
 # Dependency lists for the various source files
-Driver.o:  Driver.cpp LinearVector.h LinearVector.hpp Cholesky.h Cholesky.hpp Thomas.h Thomas.hpp BaseMatrix.h ParamMatrix.h ParamMatrix.hpp\
-LowerMatrix.h LowerMatrix.hpp UpperMatrix.h UpperMatrix.hpp TridiagonalMatrix.h TridiagonalMatrix.hpp SymmetricMatrix.h SymmetricMatrix.hpp DiagonalMatrix.h DiagonalMatrix.hpp
-
+driver.o:  driver.cpp linearvector.h linearvector.hpp cholesky.h cholesky.hpp gaussiansolver.hpp \
+					 gaussiansolver.h findiff.hpp findiff.h

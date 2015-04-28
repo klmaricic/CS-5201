@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-/// @file GaussianSolver.h
+/// @file cholesky.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement Cholesky decomposition
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __Cholesky_H_INCLUDED
-#define __Cholesky_H_INCLUDED
+#ifndef CHOLESKY_H
+#define CHILESKY_H
 
 #include <math.h>
 #include <string.h>
@@ -27,6 +27,6 @@ class Cholesky
     */
     void operator()(SymmetricMatrix<T>& matrix, LinearVector<T>& vector) const;
 };
-#include "Cholesky.hpp"
+#include "cholesky.hpp"
 #endif
 

@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-/// @file LowerMatrix.h
+/// @file uppermatrix.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement a parameterized matrix
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __LowerMatrix_H_INCLUDED
-#define __LowerMatrix_H_INCLUDED
+#ifndef UMATRIX_H
+#define UMATRIX_H
 
 #include <stdexcept>
 #include <cmath>
@@ -13,76 +13,58 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "LinearVector.h"
-#include "BaseMatrix.h"
+#include "linearvector.h"
+#include "basematrix.h"
+#include "lowermatrix.h"
+#include "symmetricmatrix.h"
+#include "parammatrix.h"
 
 template<class T>
-class ParamMatrix;
-
-template<class T>
-class UpperMatrix;
-
-template<class T>
-class DiagonalMatrix;
-
-template<class T>
-class SymmetricMatrix;
-
-template<class T>
-class TridiagonalMatrix;
-
-template<class T>
-class LowerMatrix: public BaseMatrix<T>
+class UpperMatrix: public BaseMatrix<T>
 {
   public:
     /************************** Constructors/Destructor  **************************/
     /* Purpose: Constructor
        Pre:     none
-       Post:    Creates an empty LowerMatrix object
+       Post:    Creates an empty UpperMatrix object
     */
-    LowerMatrix();
+    UpperMatrix();
 
     /* Purpose: Constructor
        Pre:     none
-       Post:    Creates an empty LowerMatrix object
+       Post:    Creates an empty UpperMatrix object
     */
-    LowerMatrix(int numRows, int numCols);
+    UpperMatrix(int numRows, int numCols);
 
     /* Purpose: Constructor
        Pre:     T=T must be defined
-       Post:    Creates a LowerMatrix object that is a copy of the argument
+       Post:    Creates an UpperMatrix object that is a copy of the argument
     */
-    LowerMatrix(const LowerMatrix<T>& matrix);
+    UpperMatrix(const UpperMatrix<T>& matrix);
 
     /* Purpose: Constructor
        Pre:     T=T must be defined
-       Post:    Creates a LowerMatrix object that copies the lower portion of the argument
+       Post:    Creates an UpperMatrix object that copies the upper portion of the argument
     */
-    LowerMatrix(const ParamMatrix<T>& matrix);
-
-    /* Purpose: Constructor
-       Pre:     T=T must be defined
-       Post:    Creates a LowerMatrix object that copies the lower portion of the argument
-    */
-    LowerMatrix(const SymmetricMatrix<T>& matrix);
+    UpperMatrix(const ParamMatrix<T>& matrix);
 
     /* Purpose: Destructor
        Pre:     none
-       Post:    Destructs the LowerMatrix object
+       Post:    Destructs the  UpperMatrix object
     */
-    virtual ~LowerMatrix();
+    virtual ~UpperMatrix();
 
     /************************** Operators **************************/
     /* Purpose: Parentheses operator
-       Pre:     Row and col must be in the range of the LowerMatrix
-       Post:    Returns the element located at row, col inside the LowerMatrix that can't be altered
+       Pre:     Row and col must be in the range of the UpperMatrix
+       Post:    Returns the element located at row, col inside the UpperMatrix that can't be altered
     */
      virtual const T operator()(const int row, const int col) const;
 
     /* Purpose: Parentheses operator
-       Pre:     Row and col must be in the range of the LowerMatrix
-       Pre:     The requested element must not be part of the upper triangle portion of the matrix
-       Post:    Returns the element located at row, col inside the LowerMatrix that can be altered
+       Pre:     Row and col must be in the range of the UpperMatrix
+       Pre:     The requested element must not be part of the lower triangle portion of the matrix
+       Post:    Returns the element located at row, col inside the UpperMatrix that can be altered
     */
     virtual T& operator()(const int row, const int col);
 
@@ -90,16 +72,16 @@ class LowerMatrix: public BaseMatrix<T>
        Pre:     T += T must be defined
        Post:    Returns the sum of the two matrices
     */
-    LowerMatrix<T> operator+(const LowerMatrix<T>& rhs) const;
+    UpperMatrix<T> operator+(const UpperMatrix<T>& rhs) const;
 
     /* Purpose: Addition operator
-       Pre:     DiagonalMatrix<T>+LowerMatrix<T> must be defined
+       Pre:     DiagonalMatrix<T>+UpperMatrix<T> must be defined
        Post:    Returns the sum of the two matrices
     */
-    LowerMatrix<T> operator+(const DiagonalMatrix<T>& rhs) const;
+    UpperMatrix<T> operator+(const DiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Addition operator
-       Pre:     ParamMatrix<T>+LowerMatrix<T> must be defined
+       Pre:     ParamMatrix<T>+UpperMatrix<T> must be defined
        Post:    Returns the sum of the two matrices
     */
     ParamMatrix<T> operator+(const BaseMatrix<T>& rhs) const;
@@ -108,42 +90,43 @@ class LowerMatrix: public BaseMatrix<T>
        Pre:     T-=T must be defined
        Post:    Returns the difference of the two matrices
     */
-    LowerMatrix<T> operator-(const LowerMatrix<T>& rhs) const;
+    UpperMatrix<T> operator-(const UpperMatrix<T>& rhs) const;
 
     /* Purpose: Subtraction operator
        Pre:     -DiagonalMatrix<T> must be defined
-       Pre:     DiagonalMatrix<T>+LowerMatrix<T> must be defined
+       Pre:     DiagonalMatrix<T>+UpperMatrix<T> must be defined
        Post:    Returns the difference of the two matrices
     */
-    LowerMatrix<T> operator-(const DiagonalMatrix<T>& rhs) const;
+    UpperMatrix<T> operator-(const DiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Subtraction operator
        Pre:     -ParamMatrix<T> must be defined
-       Pre:     ParamMatrix<T>+LowerMatrix<T> must be defined
+       Pre:     ParamMatrix<T>+UpperMatrix<T> must be defined
        Post:    Returns the difference of the two matrices
     */
     ParamMatrix<T> operator-(const BaseMatrix<T>& rhs) const;
 
     /* Purpose: Negation operator
        Pre:     -T (negation) must be defined
-       Pre:      T = T (assignment) must be defined
-       Post:     Returns the negation of the calling matrix
+       Pre:     T = T (assignment) must be defined
+       Post:    Returns the negation of the calling matrix
     */
-    LowerMatrix<T> operator-() const;
+    UpperMatrix<T> operator-() const;
 
+    
     /* Purpose: Multiplication operator
        Pre:     T*T must be defined
        Pre:     T+=T must be defined
        Post:    Returns the product of the two matrices
     */
-    LowerMatrix<T> operator*(const LowerMatrix<T>& rhs) const;
+    UpperMatrix<T> operator*(const UpperMatrix<T>& rhs) const;
 
     /* Purpose: Multiplication operator
        Pre:     T*T must be defined
-       Pre:      T = T (assignment) must be defined
+       Pre:     T = T (assignment) must be defined
        Post:    Returns the product of the two matrices
     */
-    LowerMatrix<T> operator*(const DiagonalMatrix<T>& rhs) const;
+    UpperMatrix<T> operator*(const DiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Multiplication operator
        Pre:     T*T must be defined
@@ -156,14 +139,14 @@ class LowerMatrix: public BaseMatrix<T>
        Pre:     T*=T must be defined
        Post:    Returns the product of matrix*T
     */
-    LowerMatrix<T> operator*(const T rhs) const;
+    UpperMatrix<T> operator*(const T rhs) const;
 
-     /* Purpose: Multiplication operator
-       Pre:     T*T must be defined
+    /* Purpose: Multiplication operator
+       Pre:     T*=T must be defined
        Pre:     T+=T must be defined
        Post:    Returns the product of the matrix and vetor
     */
-    ParamMatrix<T> operator*(const LinearVector<T>& rhs) const;
+    ParamMatrix<T> operator*(const LinearVector<T>& rhs) const;    
 
     /* Purpose: Brackets operator
        Pre:     i must be in the range of the matrix
@@ -180,17 +163,17 @@ class LowerMatrix: public BaseMatrix<T>
     /************************** Stream Operators **************************/
     /* Purpose: Ostream operator
        Pre:     << T (stream) must be defined
-       Post:    Returns an ostream that represents the given LowerMatrix
+       Post:    Returns an ostream that represents the given UpperMatrix
     */
     template<class U>
-    friend std::ostream& operator<<(std::ostream & stream, const LowerMatrix<T>& matrix);
+    friend std::ostream& operator<<(std::ostream & stream, const UpperMatrix<T>& matrix);
 
     /* Purpose: Ifstream operator
        Pre:     >> T (stream assignment) must be defined
-       Post:    Returns an ifstream that represents the given LowerMatrix
+       Post:    Returns an ifstream that represents the given UpperMatrix
     */
     template<class U>
-    friend std::ifstream& operator>>(std::ifstream & stream, LowerMatrix<T>& matrix);
+    friend std::ifstream& operator>>(std::ifstream & stream, UpperMatrix<T>& matrix);
 
     /************************** Other **************************/
     /* Purpose: Gets the size of the rows (number of columns)
@@ -205,9 +188,9 @@ class LowerMatrix: public BaseMatrix<T>
     */
     virtual int numRows() const;
 
-    /* Purpose: Sets the size of the calling LowerMatrix
+    /* Purpose: Sets the size of the calling UpperMatrix
        Pre:     None
-       Post:    If the calling LowerMatrix's size did not match the setSize parameter values, then it deletes all of its old elements, sets its size, and allocates new elements
+       Post:    If the calling UpperMatrix's size did not match the setSize parameter values, then it deletes all of its old elements, sets its size, and allocates new elements
     */
     virtual void setSize(int numRows, int numCols);
 
@@ -215,7 +198,7 @@ class LowerMatrix: public BaseMatrix<T>
        Pre:     None
        Post:    Returns the actual size of the matrix
     */
-    int actualSize() const;
+    int actualSize() const;  
 
     /* Purpose: Gets the theoretical size of the matrix (size of file's matrix)
        Pre:     None
@@ -223,18 +206,11 @@ class LowerMatrix: public BaseMatrix<T>
     */
     int theoSize() const;
 
-    /* Purpose: Returns the transpose of the calling LowerMatrix
-       Pre:     T=T must be defined
-       Post:    Returns the transpose of the calling LowerMatrix
-    */
-    UpperMatrix<T> transpose() const;
-
   private:
     T* m_dataPtr;
     int m_rowSize;
     int m_numRows;
 };
-#include "LowerMatrix.hpp"
+#include "uppermatrix.hpp"
 #endif
-
 

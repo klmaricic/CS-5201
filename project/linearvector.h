@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-/// @file LinearVector.h
+/// @file linearvector.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement vector analysis
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __LinearVector_H_INCLUDED
-#define __LinearVector_H_INCLUDED
+#ifndef LINEARVECTOR_H
+#define LINEARVECTOR_H
 
 #include <stdexcept>
 #include <iostream>
@@ -151,7 +151,7 @@ class LinearVector
     */
     void vectCopy(const LinearVector<T>& vect);
 };
-#include "LinearVector.hpp"
+#include "linearvector.hpp"
 #endif
 	
 	

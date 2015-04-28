@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-/// @file SymmetricMatrix.h
+/// @file lowermatrix.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement a parameterized matrix
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __SymmetricMatrix_H_INCLUDED
-#define __SymmetricMatrix_H_INCLUDED
+#ifndef LOWERMATRIX_H
+#define LOWERMATRIX_H
 
 #include <stdexcept>
 #include <cmath>
@@ -13,8 +13,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "LinearVector.h"
-#include "BaseMatrix.h"
+#include "linearvector.h"
+#include "basematrix.h"
 
 template<class T>
 class ParamMatrix;
@@ -23,59 +23,66 @@ template<class T>
 class UpperMatrix;
 
 template<class T>
-class LowerMatrix;
+class DiagonalMatrix;
 
 template<class T>
-class DiagonalMatrix;
+class SymmetricMatrix;
 
 template<class T>
 class TridiagonalMatrix;
 
 template<class T>
-class SymmetricMatrix: public BaseMatrix<T>
+class LowerMatrix: public BaseMatrix<T>
 {
   public:
     /************************** Constructors/Destructor  **************************/
     /* Purpose: Constructor
        Pre:     none
-       Post:    Creates an empty SymmetricMatrix object
+       Post:    Creates an empty LowerMatrix object
     */
-    SymmetricMatrix();
+    LowerMatrix();
 
     /* Purpose: Constructor
        Pre:     none
-       Post:    Creates an empty SymmetricMatrix object
+       Post:    Creates an empty LowerMatrix object
     */
-    SymmetricMatrix(int numRows, int numCols);
+    LowerMatrix(int numRows, int numCols);
 
     /* Purpose: Constructor
        Pre:     T=T must be defined
-       Post:    Creates a SymmetricMatrix object that is a copy of the argument
+       Post:    Creates a LowerMatrix object that is a copy of the argument
     */
-    SymmetricMatrix(const SymmetricMatrix<T>& matrix);
+    LowerMatrix(const LowerMatrix<T>& matrix);
 
     /* Purpose: Constructor
        Pre:     T=T must be defined
-       Post:    Creates a SymmetricMatrix object that copies (and doubles) the lower portion of the argument
+       Post:    Creates a LowerMatrix object that copies the lower portion of the argument
     */
-    SymmetricMatrix(const ParamMatrix<T>& matrix);
+    LowerMatrix(const ParamMatrix<T>& matrix);
+
+    /* Purpose: Constructor
+       Pre:     T=T must be defined
+       Post:    Creates a LowerMatrix object that copies the lower portion of the argument
+    */
+    LowerMatrix(const SymmetricMatrix<T>& matrix);
 
     /* Purpose: Destructor
        Pre:     none
-       Post:    Destructs the SymmetricMatrix object
+       Post:    Destructs the LowerMatrix object
     */
-    virtual ~SymmetricMatrix();
+    virtual ~LowerMatrix();
 
     /************************** Operators **************************/
     /* Purpose: Parentheses operator
-       Pre:     Row and col must be in the range of the SymmetricMatrix
-       Post:    Returns the element located at row, col inside the SymmetricMatrix that can't be altered
+       Pre:     Row and col must be in the range of the LowerMatrix
+       Post:    Returns the element located at row, col inside the LowerMatrix that can't be altered
     */
      virtual const T operator()(const int row, const int col) const;
 
     /* Purpose: Parentheses operator
-       Pre:     Row and col must be in the range of the SymmetricMatrix
-       Post:    Returns the element located at row, col inside the SymmetricMatrix that can be altered
+       Pre:     Row and col must be in the range of the LowerMatrix
+       Pre:     The requested element must not be part of the upper triangle portion of the matrix
+       Post:    Returns the element located at row, col inside the LowerMatrix that can be altered
     */
     virtual T& operator()(const int row, const int col);
 
@@ -83,16 +90,16 @@ class SymmetricMatrix: public BaseMatrix<T>
        Pre:     T += T must be defined
        Post:    Returns the sum of the two matrices
     */
-    SymmetricMatrix<T> operator+(const SymmetricMatrix<T>& rhs) const;
+    LowerMatrix<T> operator+(const LowerMatrix<T>& rhs) const;
 
     /* Purpose: Addition operator
-       Pre:     DiagonalMatrix<T>+SymmetricMatrix<T> must be defined
+       Pre:     DiagonalMatrix<T>+LowerMatrix<T> must be defined
        Post:    Returns the sum of the two matrices
     */
-    SymmetricMatrix<T> operator+(const DiagonalMatrix<T>& rhs) const;
+    LowerMatrix<T> operator+(const DiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Addition operator
-       Pre:     ParamMatrix<T>+SymmetricMatrix<T> must be defined
+       Pre:     ParamMatrix<T>+LowerMatrix<T> must be defined
        Post:    Returns the sum of the two matrices
     */
     ParamMatrix<T> operator+(const BaseMatrix<T>& rhs) const;
@@ -101,18 +108,18 @@ class SymmetricMatrix: public BaseMatrix<T>
        Pre:     T-=T must be defined
        Post:    Returns the difference of the two matrices
     */
-    SymmetricMatrix<T> operator-(const SymmetricMatrix<T>& rhs) const;
+    LowerMatrix<T> operator-(const LowerMatrix<T>& rhs) const;
 
     /* Purpose: Subtraction operator
        Pre:     -DiagonalMatrix<T> must be defined
-       Pre:     DiagonalMatrix<T>+SymmetricMatrix<T> must be defined
+       Pre:     DiagonalMatrix<T>+LowerMatrix<T> must be defined
        Post:    Returns the difference of the two matrices
     */
-    SymmetricMatrix<T> operator-(const DiagonalMatrix<T>& rhs) const;
+    LowerMatrix<T> operator-(const DiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Subtraction operator
        Pre:     -ParamMatrix<T> must be defined
-       Pre:     ParamMatrix<T>+SymmetricMatrix<T> must be defined
+       Pre:     ParamMatrix<T>+LowerMatrix<T> must be defined
        Post:    Returns the difference of the two matrices
     */
     ParamMatrix<T> operator-(const BaseMatrix<T>& rhs) const;
@@ -122,14 +129,21 @@ class SymmetricMatrix: public BaseMatrix<T>
        Pre:      T = T (assignment) must be defined
        Post:     Returns the negation of the calling matrix
     */
-    SymmetricMatrix<T> operator-() const;
+    LowerMatrix<T> operator-() const;
 
     /* Purpose: Multiplication operator
        Pre:     T*T must be defined
-       Pre:     T = T (assignment) must be defined
+       Pre:     T+=T must be defined
        Post:    Returns the product of the two matrices
     */
-    ParamMatrix<T> operator*(const DiagonalMatrix<T>& rhs) const;
+    LowerMatrix<T> operator*(const LowerMatrix<T>& rhs) const;
+
+    /* Purpose: Multiplication operator
+       Pre:     T*T must be defined
+       Pre:      T = T (assignment) must be defined
+       Post:    Returns the product of the two matrices
+    */
+    LowerMatrix<T> operator*(const DiagonalMatrix<T>& rhs) const;
 
     /* Purpose: Multiplication operator
        Pre:     T*T must be defined
@@ -142,7 +156,7 @@ class SymmetricMatrix: public BaseMatrix<T>
        Pre:     T*=T must be defined
        Post:    Returns the product of matrix*T
     */
-    SymmetricMatrix<T> operator*(const T rhs) const;
+    LowerMatrix<T> operator*(const T rhs) const;
 
      /* Purpose: Multiplication operator
        Pre:     T*T must be defined
@@ -166,17 +180,17 @@ class SymmetricMatrix: public BaseMatrix<T>
     /************************** Stream Operators **************************/
     /* Purpose: Ostream operator
        Pre:     << T (stream) must be defined
-       Post:    Returns an ostream that represents the given SymmetricMatrix
+       Post:    Returns an ostream that represents the given LowerMatrix
     */
     template<class U>
-    friend std::ostream& operator<<(std::ostream & stream, const SymmetricMatrix<T>& matrix);
+    friend std::ostream& operator<<(std::ostream & stream, const LowerMatrix<T>& matrix);
 
     /* Purpose: Ifstream operator
        Pre:     >> T (stream assignment) must be defined
-       Post:    Returns an ifstream that represents the given SymmetricMatrix
+       Post:    Returns an ifstream that represents the given LowerMatrix
     */
     template<class U>
-    friend std::ifstream& operator>>(std::ifstream & stream, SymmetricMatrix<T>& matrix);
+    friend std::ifstream& operator>>(std::ifstream & stream, LowerMatrix<T>& matrix);
 
     /************************** Other **************************/
     /* Purpose: Gets the size of the rows (number of columns)
@@ -191,9 +205,9 @@ class SymmetricMatrix: public BaseMatrix<T>
     */
     virtual int numRows() const;
 
-    /* Purpose: Sets the size of the calling SymmetricMatrix
+    /* Purpose: Sets the size of the calling LowerMatrix
        Pre:     None
-       Post:    If the calling SymmetricMatrix's size did not match the setSize parameter values, then it deletes all of its old elements, sets its size, and allocates new elements
+       Post:    If the calling LowerMatrix's size did not match the setSize parameter values, then it deletes all of its old elements, sets its size, and allocates new elements
     */
     virtual void setSize(int numRows, int numCols);
 
@@ -209,12 +223,18 @@ class SymmetricMatrix: public BaseMatrix<T>
     */
     int theoSize() const;
 
+    /* Purpose: Returns the transpose of the calling LowerMatrix
+       Pre:     T=T must be defined
+       Post:    Returns the transpose of the calling LowerMatrix
+    */
+    UpperMatrix<T> transpose() const;
+
   private:
     T* m_dataPtr;
     int m_rowSize;
     int m_numRows;
 };
-#include "SymmetricMatrix.hpp"
+#include "lowermatrix.hpp"
 #endif
 
 
