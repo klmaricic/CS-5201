@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////
-/// @file FinDiff.h
+/// @file findiff.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement Gaussian Elimination
 //FIXME

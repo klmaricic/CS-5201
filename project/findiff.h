@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////////////////////
-/// @file FinDiff.h
+/// @file findiff.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement Gaussian Elimination
 //FIXME
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __FiniteDifference_H_INCLUDED
-#define __FinitieDifference_H_INCLUDED
+#ifndef FINDIFF_H
+#define FINDIFF_H
 
 #include <math.h>
 #include <string.h>
@@ -31,6 +31,6 @@ class FinDiff
     //void operator()(ParamMatrix<T>& matrix, LinearVector<T>& vector) const;
     void operator()( const T lower, const T upper, const int n );
 };
-#include "GaussianSolver.hpp"
+#include "findiff.hpp"
 #endif
 

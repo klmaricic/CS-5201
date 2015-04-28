@@ -1,12 +1,11 @@
-
 //////////////////////////////////////////////////////////////////////
-/// @file BaseMatrix.h
+/// @file basematrix.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement a parameterized matrix
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __BaseMatrix_H_INCLUDED
-#define __BaseMatrix_H_INCLUDED
+#ifndef BASEMATRIX_H
+#define BASEMATRIX_H
 
 #include <stdexcept>
 #include <cmath>
@@ -14,9 +13,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "LinearVector.h"
-
-
+#include "linearvector.h"
 
 template<class T>
 class BaseMatrix

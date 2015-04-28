@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-/// @file LowerMatrix.h
+/// @file lowermatrix.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement a parameterized matrix
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __LowerMatrix_H_INCLUDED
-#define __LowerMatrix_H_INCLUDED
+#ifndef LOWERMATRIX_H
+#define LOWERMATRIX_H
 
 #include <stdexcept>
 #include <cmath>
@@ -13,8 +13,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "LinearVector.h"
-#include "BaseMatrix.h"
+#include "linearvector.h"
+#include "basematrix.h"
 
 template<class T>
 class ParamMatrix;
@@ -234,7 +234,7 @@ class LowerMatrix: public BaseMatrix<T>
     int m_rowSize;
     int m_numRows;
 };
-#include "LowerMatrix.hpp"
+#include "lowermatrix.hpp"
 #endif
 
 

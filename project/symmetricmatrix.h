@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-/// @file SymmetricMatrix.h
+/// @file symmetricmatrix.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement a parameterized matrix
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __SymmetricMatrix_H_INCLUDED
-#define __SymmetricMatrix_H_INCLUDED
+#ifndef SYMMETRICMATRIX_H
+#define SYMMETRICMATRIX_H
 
 #include <stdexcept>
 #include <cmath>
@@ -13,8 +13,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "LinearVector.h"
-#include "BaseMatrix.h"
+#include "linearvector.h"
+#include "basematrix.h"
 
 template<class T>
 class ParamMatrix;
@@ -214,7 +214,7 @@ class SymmetricMatrix: public BaseMatrix<T>
     int m_rowSize;
     int m_numRows;
 };
-#include "SymmetricMatrix.hpp"
+#include "symmetricmatrix.hpp"
 #endif
 
 

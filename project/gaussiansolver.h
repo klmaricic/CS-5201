@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-/// @file GaussianSolver.h
+/// @file gaussiansolver.h
 /// @author Kelsey Maricic CS 5201 A
 /// @brief Write a templated class to implement Gaussian Elimination
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __GaussianSolver_H_INCLUDED
-#define __GaussianSolver_H_INCLUDED
+#ifndef GAUSSIANSOLVER_H
+#define GAUSSIANSOLVER_H
 
 #include <math.h>
 #include <string.h>
@@ -29,6 +29,6 @@ class GaussianSolver
     */
     void operator()(ParamMatrix<T>& matrix, LinearVector<T>& vector) const;
 };
-#include "GaussianSolver.hpp"
+#include "gaussiansolver.hpp"
 #endif
 
