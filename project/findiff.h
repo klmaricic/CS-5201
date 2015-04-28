@@ -10,8 +10,7 @@
 
 #include "parammatrix.h"
 
-#include <string.h>
-#include <math.h>
+#include <cmath>
 
 template<class T, class T_func>
 class FinDiff
