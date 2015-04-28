@@ -14,6 +14,7 @@
 #include "symmetricmatrix.h"
 #include "linearvector.h"
 #include "cholesky.h"
+#include "findiff.h"
 
 int main(int argc, char *argv[])
 {

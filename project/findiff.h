@@ -8,10 +8,12 @@
 #ifndef FINDIFF_H
 #define FINDIFF_H
 
-#include <math.h>
-#include <string.h>
+#include "parammatrix.h"
 
-template<class T, typename T_func>
+#include <string.h>
+#include <math.h>
+
+template<class T, class T_func>
 class FinDiff
 {
   public:
@@ -28,8 +30,8 @@ class FinDiff
        Pre:     T/=T must be defined
        Post:    Prints out the solution to the system using scaled partial pivoting and Gaussian elimination
     */
-    //void operator()(ParamMatrix<T>& matrix, LinearVector<T>& vector) const;
     void operator()( const T lower, const T upper, const int n );
+    int map( const int k, const int j, const int n );
 };
 #include "findiff.hpp"
 #endif

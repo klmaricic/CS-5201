@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #ifndef CHOLESKY_H
-#define CHILESKY_H
+#define CHOLESKY_H
 
 #include <math.h>
 #include <string.h>
