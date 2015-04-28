@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
 {
   int dimension;
   SymmetricMatrix<double> symMatrix;
-  LinearVector<double> triVector;
   LinearVector<double> symVector;
   Cholesky<double> cholesky;
   
@@ -33,14 +32,6 @@ int main(int argc, char *argv[])
     {
       file >> dimension;
 
-      triMatrix.setSize(dimension,dimension);
-      triVector.setSize(dimension);
-
-      file >> triMatrix;
-      file >> triVector;     
-
-      file >> dimension;
-
       symMatrix.setSize(dimension, dimension);
       symVector.setSize(dimension);
 
@@ -49,7 +40,6 @@ int main(int argc, char *argv[])
 
       file.close();
 
-      thomas(triMatrix,triVector);
       cholesky(symMatrix, symVector);   
     }
     else 
