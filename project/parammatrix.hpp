@@ -252,19 +252,34 @@ const T& ParamMatrix<T>::operator[](const int i) const
 
 /************************** Stream Operators **************************/
 template <class T>
-std::ostream& operator<<(std::ostream & stream, const ParamMatrix<T>& matrix)
+std::ostream& operator<<(std::ostream & os, const ParamMatrix<T>& matrix)
 {
-  for(int i = 0; i < matrix.numRows(); i++)
+  T max = 0;
+  //find max entry
+  for( int i=0; i<matrix.numRows( ); i++ )
   {
-    stream << "<";
-	
-    for(int j = 0; j < matrix.rowSize() - 1; j++)
-      stream << matrix[i*matrix.rowSize()+j] << ", ";
+    for( int j=0; j<matrix.rowSize( ); j++ )
+    {
+      stringstream ss;
+      ss << matrix[i*matrix.rowSize()+j];
+      int len = ss.str( ).length( );
 
-    stream << matrix[i*matrix.rowSize()+matrix.rowSize()-1] << ">" << std::endl;
+      if( len > max )
+        max = len;
+    }
   }
-  
-  return stream;
+
+  max++;
+
+  for( int i=0; i<matrix.numRows( ); i++ )
+  {
+    os << "│"; 
+    for( int j=0; j<matrix.rowSize( ); j++ )
+      os << setw( max ) << matrix[i*matrix.rowSize()+j] << setw( max );
+    os << " │" << endl; 
+  }
+
+  return os;
 }
 
 template <class T>

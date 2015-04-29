@@ -14,11 +14,14 @@
 #include <string>
 #include <sstream>
 #include <stdexcept>
+#include <iomanip>
 #include "linearvector.h"
 #include "basematrix.h"
 #include "uppermatrix.h"
 #include "lowermatrix.h"
 #include "symmetricmatrix.h"
+
+using namespace std;
 
 template<class T>
 class ParamMatrix: public BaseMatrix<T>
@@ -162,7 +165,7 @@ class ParamMatrix: public BaseMatrix<T>
        Post:    Returns an ostream that represents the given ParamMatrix
     */
     template<class U> 
-    friend std::ostream& operator<< (std::ostream & stream, const ParamMatrix<T>& matrix);
+    friend std::ostream& operator<< (std::ostream & os, const ParamMatrix<T>& matrix);
 	
     /* Purpose:	Ifstream operator
        Pre:     >> T (stream assignment) must be defined

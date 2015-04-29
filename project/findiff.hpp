@@ -14,7 +14,6 @@ void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n )
 
   for( int i=0; i<A.numRows( ); i++ )
   {
-    cerr << "=====" << endl << "New loop:\tj: " << j << "k: " << k << endl << "=====" << endl;
 
     A( i, i ) = 1;
     if( j > 0 )
@@ -41,6 +40,5 @@ void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n )
 template <class T, class T_func>
 inline int FinDiff<T,T_func>::map( const int j, const int k, const int n ) 
 {
-  cerr << "j: " << j << "\tk: " << k << "\t\t" << j+k*(n-1) << endl; // we have n-1 cuts per y, and n-1 cuts for each of those
   return j+k*(n-1); // we have n-1 cuts per y, and n-1 cuts for each of those
 }
