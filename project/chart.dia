@@ -28,7 +28,7 @@
           <dia:boolean val="false"/>
         </dia:attribute>
         <dia:attribute name="scaling">
-          <dia:real val="0.20000000298023224"/>
+          <dia:real val="0.18999999761581421"/>
         </dia:attribute>
         <dia:attribute name="fitto">
           <dia:boolean val="false"/>
@@ -5405,7 +5405,7 @@
         <dia:point val="7.24872,0.834087"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7.19872,0.0840871;30.5387,20.2841"/>
+        <dia:rectangle val="7.19872,0.084087;30.5387,20.2841"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="7.24872,0.834087"/>
@@ -6449,7 +6449,7 @@
         <dia:point val="55.1986,55.2124"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="55.1486,54.4996;71.9176,56.0996"/>
+        <dia:rectangle val="55.1486,54.4997;71.9176,56.0997"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
