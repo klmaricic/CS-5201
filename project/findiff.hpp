@@ -5,7 +5,7 @@
 //FIXME
 //////////////////////////////////////////////////////////////////////
 
-template <class T, class T_func>
+template <class T, double T_func(double, double)>
 void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n )
 {
   T h = static_cast<T>(1/n);
@@ -53,7 +53,7 @@ void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n )
 } 
 
 // Map from k, j to column number
-template <class T, class T_func>
+template <class T, double T_func(double, double)>
 inline int FinDiff<T,T_func>::map( const int j, const int k, const int n ) 
 {
   return j+k*(n-1); // we have n-1 cuts per y, and n-1 cuts for each of those

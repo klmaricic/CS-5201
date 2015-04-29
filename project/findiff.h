@@ -16,7 +16,7 @@
 
 using namespace std;
 
-template<class T, class T_func>
+template <class T, double T_func(double, double)>
 class FinDiff
 {
   public:

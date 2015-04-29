@@ -19,7 +19,7 @@
 
 int main(int argc, char *argv[])
 {
-  FinDiff<double,char> tester;
+  FinDiff<double,pow> tester;
 
   tester(0, 1, 6);
   /*
