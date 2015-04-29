@@ -13,7 +13,7 @@ template <class T>
 class BoundFunction
 {
   public:
-    T operator()(T lhs, T rhs);
+    T operator()(const T lhs, const T rhs);
 };
 #include "boundfunction.hpp"
 #endif

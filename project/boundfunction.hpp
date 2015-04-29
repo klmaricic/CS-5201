@@ -7,7 +7,7 @@
 
 
 template <class T>
-T BoundFunction<T>::operator()(T lhs, T rhs)
+T BoundFunction<T>::operator()(const T lhs, const T rhs)
 {
   if(lhs == 0)
     return sin(rhs);
