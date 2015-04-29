@@ -43,4 +43,4 @@ clean:
 	-@rm -f ${OBJECTS} > /dev/null 2>&1
 # Dependency lists for the various source files
 driver.o:  driver.cpp linearvector.h linearvector.hpp cholesky.h cholesky.hpp gaussiansolver.hpp \
-					 gaussiansolver.h findiff.hpp findiff.h
+					 gaussiansolver.h findiff.hpp findiff.h $(MATRICES)

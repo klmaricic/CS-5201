@@ -21,8 +21,7 @@ int main(int argc, char *argv[])
 {
   FinDiff<double,char> tester;
 
-
-  //tester(0, 1, 2);
+  tester(0, 1, 3);
   /*
   int dimension;
   SymmetricMatrix<double> symMatrix;
