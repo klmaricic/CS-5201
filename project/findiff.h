@@ -10,13 +10,14 @@
 
 #include "parammatrix.h"
 #include "linearvector.h"
+#include "boundfunction.h"
 
 #include <iostream>
 #include <cmath>
 
 using namespace std;
 
-template <class T, double T_func(double, double)>
+template <class T, class T_func>
 class FinDiff
 {
   public:
@@ -33,8 +34,8 @@ class FinDiff
        Pre:     T/=T must be defined
        Post:    Prints out the solution to the system using scaled partial pivoting and Gaussian elimination
     */
-    void operator()( const T lower, const T upper, const int n );
-    int map( const int k, const int j, const int n );
+    void operator()( const T lower, const T upper, const int n, T_func f );
+    int map( const int k, const int j, const int n);
 };
 #include "findiff.hpp"
 #endif

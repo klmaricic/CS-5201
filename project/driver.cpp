@@ -16,12 +16,13 @@
 #include "linearvector.h"
 #include "cholesky.h"
 #include "findiff.h"
+#include "boundfunction.h"
 
 int main(int argc, char *argv[])
 {
-  FinDiff<double,pow> tester;
-
-  tester(0, 1, 6);
+  FinDiff<double, BoundFunction<double> > tester;
+  
+  tester(0, 1, 6, BoundFunction<double>());
   /*
   int dimension;
   SymmetricMatrix<double> symMatrix;
