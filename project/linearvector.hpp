@@ -10,6 +10,9 @@ LinearVector<T>::LinearVector(int n)
 {
   m_size = n;
   m_data_ptr = new T[n];
+
+  for(int i = 0; i < getSize(); i++)
+    m_data_ptr[i] = 0;
 }
 
 template <class T>
@@ -17,6 +20,9 @@ LinearVector<T>::LinearVector()
 {
   m_size = 0;
   m_data_ptr = 0;
+
+  for(int i = 0; i < getSize(); i++)
+    m_data_ptr[i] = 0;
 }
 
 template <class T>
