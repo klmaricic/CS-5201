@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 {
   FinDiff<double, BoundFunction<double> > tester;
   
-  tester(0, 1, 6, BoundFunction<double>());
+  tester(0, M_PI, 5, BoundFunction<double>());
   /*
   int dimension;
   SymmetricMatrix<double> symMatrix;

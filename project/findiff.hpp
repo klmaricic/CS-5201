@@ -8,8 +8,8 @@
 template <class T, class T_func>
 void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n, T_func f )
 {
-  T h = static_cast<T>(1/n);
-  ParamMatrix<T> A( (n-1)*(n-1), (n-1)*(n-1) );
+  T h = static_cast<T>(1.0/n);
+  SymmetricMatrix<T> A( (n-1)*(n-1), (n-1)*(n-1) );
   LinearVector<T> b( A.numRows() );
   int j=0, k=0;
 
@@ -27,15 +27,25 @@ void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n, T
     else
       b[i] += f( j, lower );
 
+    // With symmetric matrices we don't need to calculate above the bounds
+    /*
     if( j < n-2 )
       A( i, map( j+1, k, n ) ) = -h;
     else
       b[i] += f( upper, k );
+    */
+    if( j >= n-2 )
+      b[i] += f( upper, k );
 
+    /*
     if( k < n-2 )
       A( i, map( j, k+1, n ) ) = -h;
     else
       b[i] += f( j, upper ); 
+    */
+    if( k >= n-2 )
+      b[i] += f( upper, k );
+
 
     j++;
     if( j == n-1 )
@@ -48,8 +58,6 @@ void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n, T
   // multiply all of b by h
   for( int i=0; i<A.numRows(); i++ )
     b[i] *= h;
-
-  cout << A << endl;
 } 
 
 // Map from k, j to column number
