@@ -23,7 +23,16 @@
 
 using namespace std;
 
-template<class T>
+template <class T>
+class ParamMatrix;
+
+template <class T>
+ostream& operator<<(std::ostream& os, const ParamMatrix<T>& matrix);
+
+template <class T>
+ifstream& operator>>(std::ifstream& stream, ParamMatrix<T>& rhs);
+
+template <class T>
 class ParamMatrix: public BaseMatrix<T>
 {
   public:
@@ -164,15 +173,13 @@ class ParamMatrix: public BaseMatrix<T>
        Pre:     << T (stream) must be defined
        Post:    Returns an ostream that represents the given ParamMatrix
     */
-    template<class U> 
-    friend std::ostream& operator<< (std::ostream & os, const ParamMatrix<T>& matrix);
+    friend ostream& operator<<<T>(ostream& os, const ParamMatrix<T>& matrix);
 	
     /* Purpose:	Ifstream operator
        Pre:     >> T (stream assignment) must be defined
        Post:    Returns an ifstream that represents the given ParamMatrix
     */
-    template<class U> 
-    friend std::ifstream& operator>> (std::ifstream & stream, ParamMatrix<T> &rhs);
+    friend ifstream& operator>><T>(ifstream& stream, ParamMatrix<T>& rhs);
 	
     /************************** Other **************************/	
     /* Purpose: Gets the size of the rows (number of columns)

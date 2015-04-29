@@ -13,25 +13,31 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <iomanip>
 #include "linearvector.h"
 #include "basematrix.h"
 
-template<class T>
+using namespace std;
+
+template <class T>
 class ParamMatrix;
 
-template<class T>
+template <class T>
 class UpperMatrix;
 
-template<class T>
+template <class T>
 class LowerMatrix;
 
-template<class T>
-class DiagonalMatrix;
+template <class T>
+class SymmetricMatrix;
 
-template<class T>
-class TridiagonalMatrix;
+template <class T>
+ostream& operator<<(ostream& os, const SymmetricMatrix<T>& matrix);
 
-template<class T>
+template <class T>
+ifstream& operator>>(fstream& stream, SymmetricMatrix<T>& matrix);
+
+template <class T>
 class SymmetricMatrix: public BaseMatrix<T>
 {
   public:
@@ -168,15 +174,14 @@ class SymmetricMatrix: public BaseMatrix<T>
        Pre:     << T (stream) must be defined
        Post:    Returns an ostream that represents the given SymmetricMatrix
     */
-    template<class U>
-    friend std::ostream& operator<<(std::ostream & stream, const SymmetricMatrix<T>& matrix);
+    friend ostream& operator<<<T>(ostream& os, const SymmetricMatrix<T>& matrix);
 
     /* Purpose: Ifstream operator
        Pre:     >> T (stream assignment) must be defined
        Post:    Returns an ifstream that represents the given SymmetricMatrix
     */
-    template<class U>
-    friend std::ifstream& operator>>(std::ifstream & stream, SymmetricMatrix<T>& matrix);
+    friend ifstream& operator>>(ifstream& stream, SymmetricMatrix<T>& matrix);
+    //FIXME ^ <T>
 
     /************************** Other **************************/
     /* Purpose: Gets the size of the rows (number of columns)
@@ -216,5 +221,3 @@ class SymmetricMatrix: public BaseMatrix<T>
 };
 #include "symmetricmatrix.hpp"
 #endif
-
-

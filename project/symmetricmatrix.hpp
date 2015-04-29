@@ -65,7 +65,7 @@ SymmetricMatrix<T>::~SymmetricMatrix()
 
 /************************** Operators **************************/
 template <class T>
-const T SymmetricMatrix<T>::operator()(const int row, const int col) const
+inline const T SymmetricMatrix<T>::operator()(const int row, const int col) const
 {
   if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
     throw std::out_of_range( "An argument is outside of the matrix." );
@@ -77,7 +77,7 @@ const T SymmetricMatrix<T>::operator()(const int row, const int col) const
 }
 
 template <class T>
-T& SymmetricMatrix<T>::operator()(const int row, const int col)
+inline T& SymmetricMatrix<T>::operator()(const int row, const int col)
 {
   if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
     throw std::out_of_range( "An argument is outside of the matrix." );
@@ -219,7 +219,7 @@ ParamMatrix<T> SymmetricMatrix<T>::operator*(const LinearVector<T>& rhs) const
 }
 
 template <class T>
-T& SymmetricMatrix<T>::operator[](const int i)
+inline T& SymmetricMatrix<T>::operator[](const int i)
 {
   return m_dataPtr[i];
 }
@@ -232,23 +232,38 @@ const T& SymmetricMatrix<T>::operator[](const int i) const
 
 /************************** Stream Operators **************************/
 template <class T>
-std::ostream& operator<<(std::ostream & stream, const SymmetricMatrix<T>& matrix)
+ostream& operator<<(ostream& os, const SymmetricMatrix<T>& matrix)
 {
-  for(int row = 0; row < matrix.numRows(); row++)
+  T max = 0;
+  //find max entry
+  for( int i=0; i<matrix.numRows( ); i++ )
   {
-    std::cout << "<";
+    for( int j=0; j<matrix.rowSize( ); j++ )
+    {
+      stringstream ss;
+      ss << matrix( i, j );
+      int len = ss.str( ).length( );
 
-    for(int col = 0; col < matrix.rowSize()-1; col++)
-      stream << matrix(row, col) << ", ";
-
-    stream << matrix(row, matrix.rowSize()-1) << ">" << std::endl;
+      if( len > max )
+        max = len;
+    }
   }
 
-  return stream;
+  max++;
+
+  for( int i=0; i<matrix.numRows( ); i++ )
+  {
+    os << "│"; 
+    for( int j=0; j<matrix.rowSize( ); j++ )
+      os << setw( max ) << matrix( i, j ) << setw( max );
+    os << " │" << endl; 
+  }
+
+  return os;
 }
 
 template <class T>
-std::ifstream& operator>>(std::ifstream & file, SymmetricMatrix<T>& matrix)
+ifstream& operator>>(ifstream& file, SymmetricMatrix<T>& matrix)
 {
   int index = 0;
   double temp;
@@ -273,13 +288,13 @@ std::ifstream& operator>>(std::ifstream & file, SymmetricMatrix<T>& matrix)
 
 /************************** Other **************************/
 template <class T>
-int SymmetricMatrix<T>::rowSize() const
+inline int SymmetricMatrix<T>::rowSize() const
 {
   return m_rowSize;
 }
 
 template <class T>
-int SymmetricMatrix<T>::numRows() const
+inline int SymmetricMatrix<T>::numRows() const
 {
   return m_numRows;
 }

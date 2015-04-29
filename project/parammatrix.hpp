@@ -56,18 +56,18 @@ ParamMatrix<T>::~ParamMatrix()
 
 /************************** Operators **************************/
 template <class T>
-const T ParamMatrix<T>::operator()(const int row, const int col) const
+inline const T ParamMatrix<T>::operator()(const int row, const int col) const
 {
-  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+  if( row >= m_numRows || col >= m_rowSize || row < 0 || col < 0 )
     throw std::out_of_range( "An argument is outside of the matrix." );
 
   return m_dataPtr[m_rowSize*row+col];
 }
 
 template <class T>
-T& ParamMatrix<T>::operator()(const int row, const int col)
+inline T& ParamMatrix<T>::operator()(const int row, const int col)
 {
-  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+  if( row >= m_numRows || col >= m_rowSize || row < 0 || col < 0 )
     throw std::out_of_range( "An argument is outside of the matrix." );
 
   return m_dataPtr[m_rowSize*row+col];
@@ -255,7 +255,7 @@ const T& ParamMatrix<T>::operator[](const int i) const
 
 /************************** Stream Operators **************************/
 template <class T>
-std::ostream& operator<<(std::ostream & os, const ParamMatrix<T>& matrix)
+ostream& operator<<(ostream& os, const ParamMatrix<T>& matrix)
 {
   T max = 0;
   //find max entry
@@ -264,7 +264,7 @@ std::ostream& operator<<(std::ostream & os, const ParamMatrix<T>& matrix)
     for( int j=0; j<matrix.rowSize( ); j++ )
     {
       stringstream ss;
-      ss << matrix[i*matrix.rowSize()+j];
+      ss << matrix( i, j );
       int len = ss.str( ).length( );
 
       if( len > max )
@@ -278,7 +278,7 @@ std::ostream& operator<<(std::ostream & os, const ParamMatrix<T>& matrix)
   {
     os << "│"; 
     for( int j=0; j<matrix.rowSize( ); j++ )
-      os << setw( max ) << matrix[i*matrix.rowSize()+j] << setw( max );
+      os << setw( max ) << matrix( i, j ) << setw( max );
     os << " │" << endl; 
   }
 
@@ -286,7 +286,7 @@ std::ostream& operator<<(std::ostream & os, const ParamMatrix<T>& matrix)
 }
 
 template <class T>
-std::ifstream& operator>>(std::ifstream & file, ParamMatrix<T> &rhs)
+ifstream& operator>>(ifstream& file, ParamMatrix<T>& rhs)
 {
   for(int i = 0; i < rhs.getSize(); i++)  	
     file >> rhs[i]; 
@@ -296,7 +296,7 @@ std::ifstream& operator>>(std::ifstream & file, ParamMatrix<T> &rhs)
 
 /************************** Other **************************/
 template <class T>
-int ParamMatrix<T>::rowSize() const
+inline int ParamMatrix<T>::rowSize() const
 {
   return m_rowSize;
 }
@@ -314,15 +314,15 @@ void ParamMatrix<T>::setSize(int numRows, int numCols)
 }
 
 template <class T>
-int ParamMatrix<T>::numRows() const
+inline int ParamMatrix<T>::numRows() const
 {
   return m_numRows;
 }
 
 template <class T>
-int ParamMatrix<T>::getSize() const
+inline int ParamMatrix<T>::getSize() const
 {
-  return m_rowSize*m_numRows;;
+  return m_rowSize*m_numRows;
 }
 
 template <class T>
