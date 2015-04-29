@@ -9,6 +9,7 @@
 #define FINDIFF_H
 
 #include "parammatrix.h"
+#include "linearvector.h"
 
 #include <iostream>
 #include <cmath>

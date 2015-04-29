@@ -8,22 +8,34 @@
 template <class T, class T_func>
 void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n )
 {
-  T h = 1.f/n;
+  T h = static_cast<T>(1/n);
   ParamMatrix<T> A( (n-1)*(n-1), (n-1)*(n-1) );
+  LinearVector<T> b( A.numRows() );
   int j=0, k=0;
 
-  for( int i=0; i<A.numRows( ); i++ )
+  for( int i=0; i<A.numRows(); i++ )
   {
-
     A( i, i ) = 1;
+
     if( j > 0 )
       A( i, map( j-1, k, n ) ) = -h;
+    else
+      b[i] += T_func( lower, k );
+
     if( k > 0 )
       A( i, map( j, k-1, n ) ) = -h;
+    else
+      b[i] += T_func( j, lower );
+
     if( j < n-2 )
       A( i, map( j+1, k, n ) ) = -h;
+    else
+      b[i] += T_func( upper, k );
+
     if( k < n-2 )
       A( i, map( j, k+1, n ) ) = -h;
+    else
+      b[i] += T_func( j, upper ); 
 
     j++;
     if( j == n-1 )
@@ -32,6 +44,10 @@ void FinDiff<T,T_func>::operator()( const T lower, const T upper, const int n )
       k++;
     }
   }
+
+  // multiply all of b by h
+  for( int i=0; i<A.numRows(); i++ )
+    b[i] *= h;
 
   cout << A << endl;
 } 
