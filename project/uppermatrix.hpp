@@ -63,7 +63,10 @@ UpperMatrix<T>::~UpperMatrix()
 /************************** Operators **************************/
 template <class T>
 const T UpperMatrix<T>::operator()(const int row, const int col) const
-{ 
+{
+  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+    throw std::out_of_range( "An argument is outside of the matrix." );
+ 
   if(row > col)
     return 0;
 
@@ -74,6 +77,9 @@ const T UpperMatrix<T>::operator()(const int row, const int col) const
 template <class T>
 T& UpperMatrix<T>::operator()(const int row, const int col)
 {
+  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+    throw std::out_of_range( "An argument is outside of the matrix." );
+
   return m_dataPtr[m_rowSize*row+col-row*(row+1)/2];
 }
 

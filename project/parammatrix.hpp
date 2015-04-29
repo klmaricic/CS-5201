@@ -55,12 +55,18 @@ ParamMatrix<T>::~ParamMatrix()
 template <class T>
 const T ParamMatrix<T>::operator()(const int row, const int col) const
 {
+  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+    throw std::out_of_range( "An argument is outside of the matrix." );
+
   return m_dataPtr[m_rowSize*row+col];
 }
 
 template <class T>
 T& ParamMatrix<T>::operator()(const int row, const int col)
 {
+  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+    throw std::out_of_range( "An argument is outside of the matrix." );
+
   return m_dataPtr[m_rowSize*row+col];
 }
 

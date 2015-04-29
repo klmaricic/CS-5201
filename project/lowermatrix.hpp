@@ -76,6 +76,9 @@ LowerMatrix<T>::~LowerMatrix()
 template <class T>
 const T LowerMatrix<T>::operator()(const int row, const int col) const
 {
+  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+    throw std::out_of_range( "An argument is outside of the matrix." );
+
   if(row < col)
     return 0;
 
@@ -85,6 +88,9 @@ const T LowerMatrix<T>::operator()(const int row, const int col) const
 template <class T>
 T& LowerMatrix<T>::operator()(const int row, const int col)
 {
+  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+    throw std::out_of_range( "An argument is outside of the matrix." );
+
   return m_dataPtr[col + (row+1)*row/2];
 }
 

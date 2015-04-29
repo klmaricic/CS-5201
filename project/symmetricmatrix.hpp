@@ -64,6 +64,9 @@ SymmetricMatrix<T>::~SymmetricMatrix()
 template <class T>
 const T SymmetricMatrix<T>::operator()(const int row, const int col) const
 {
+  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+    throw std::out_of_range( "An argument is outside of the matrix." );
+
   if(row < col)
     return m_dataPtr[row + (col+1)*col/2];
 
@@ -73,6 +76,9 @@ const T SymmetricMatrix<T>::operator()(const int row, const int col) const
 template <class T>
 T& SymmetricMatrix<T>::operator()(const int row, const int col)
 {
+  if( row >= numRows() || col >= rowSize() || row < 0 || col < 0 )
+    throw std::out_of_range( "An argument is outside of the matrix." );
+
   if(row < col)
     return m_dataPtr[row + (col+1)*col/2];
 
