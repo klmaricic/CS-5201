@@ -20,9 +20,6 @@ LinearVector<T>::LinearVector()
 {
   m_size = 0;
   m_data_ptr = 0;
-
-  for(int i = 0; i < getSize(); i++)
-    m_data_ptr[i] = 0;
 }
 
 template <class T>

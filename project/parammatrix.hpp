@@ -18,6 +18,9 @@ ParamMatrix<T>::ParamMatrix(int numRows, int numCols)
   m_dataPtr = new T[numRows*numCols];
   m_rowSize = numCols;
   m_numRows = numRows;
+
+  for(int i = 0; i < numRows*numCols; i++)
+    m_dataPtr[i] = 0;
 }
 
 template <class T>
